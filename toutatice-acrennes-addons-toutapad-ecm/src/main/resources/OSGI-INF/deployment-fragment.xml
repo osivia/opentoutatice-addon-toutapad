@@ -16,7 +16,7 @@
 		</unzip>
 		-->
 
-		<!-- append l10n files 
+		<!-- append l10n files -->
 		<delete path="${bundle.fileName}.tmp" />
 		<mkdir path="${bundle.fileName}.tmp" />
 
@@ -31,7 +31,6 @@
 			to="nuxeo.war/WEB-INF/classes/messages_fr.properties" addNewLine="true" />
 
 		<delete path="${bundle.fileName}.tmp" />
-		-->
 	</install>
 
 </fragment>

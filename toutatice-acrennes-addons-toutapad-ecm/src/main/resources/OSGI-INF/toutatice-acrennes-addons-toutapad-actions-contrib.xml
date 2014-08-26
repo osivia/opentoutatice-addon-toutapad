@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<component name="fr.toutatice.addons.toutapad.ecm.actions.config">
+
+	<require>org.nuxeo.ecm.platform.actions.ActionService</require>
+
+	<extension target="org.nuxeo.ecm.platform.actions.ActionService" point="actions">
+
+		<action id="CREATE_NEW_TOUTATICE_PAD"
+			label="toutatice.acrennes.addons.toutapad.actions.create.pad"
+			enabled="true" 
+			order="1" 
+			type="link" 
+			immediate="false"
+			link="#{operationActionBean.doOperation('newToutaticePadOp')}">
+			<category>SUBVIEW_UPPER_LIST</category>
+			<filter id="filter@CREATE_NEW_TOUTATICE_PAD">
+				<rule grant="true">
+					<permission>Write</permission>
+					<type>ToutaticePadFolder</type>
+				</rule>
+			</filter>
+		</action>
+
+	</extension>
+	
+	<extension target="org.nuxeo.ecm.platform.actions.ActionService" point="filters">
+		<!-- 
+		<filter id="create" append="true">
+			<rule grant="true">
+				<permission>AddChildren</permission>
+				<type>ToutaticePadFolder</type>
+				<condition>!document.isImmutable()</condition>
+				<condition>#{typeManager.getAllowedSubTypes(document.getType(), document).size() &gt; 0}</condition>
+			</rule>
+		</filter>
+		 -->
+
+		<filter id="create" append="true">
+			<rule grant="false">
+				<type>ToutaticePadFolder</type>
+			</rule>
+		</filter>
+
+	</extension>
+
+</component>

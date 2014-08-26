@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<component name="fr.toutatice.addons.toutapad.ecm.automation.config">
+
+	<require>org.nuxeo.ecm.core.operation.OperationServiceComponent</require>
+
+	<extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="chains">
+
+		<chain id="newToutaticePadOp">
+			<operation id="Context.FetchDocument" />
+			<operation id="Seam.CreateDocumentForm">
+				<param type="string" name="type">ToutaticePad</param>
+			</operation>
+		</chain>
+	
+	</extension>
+
+</component>
