@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Toutatice-addon-toutapad
+Bundle-SymbolicName: fr.toutatice.ecm.acrennes.addon.toutapad.ecm;singleton:=true
+Bundle-Version: 2.0.0
+Bundle-Localization: plugin
+Bundle-Vendor: Acarennes
+Bundle-Category: stateful
+Nuxeo-Component: 
+ 
