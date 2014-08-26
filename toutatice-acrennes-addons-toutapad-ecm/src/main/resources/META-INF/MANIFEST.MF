@@ -13,5 +13,6 @@ Nuxeo-Component: OSGI-INF/toutatice-acrennes-addons-toutapad-service-contrib.xml
  OSGI-INF/toutatice-acrennes-addons-toutapad-versioning-contrib.xml,
  OSGI-INF/toutatice-acrennes-addons-toutapad-security-contrib.xml,
  OSGI-INF/toutatice-acrennes-addons-toutapad-actions-contrib.xml,
- OSGI-INF/toutatice-acrennes-addons-toutapad-automation-contrib.xml
+ OSGI-INF/toutatice-acrennes-addons-toutapad-automation-contrib.xml,
+ OSGI-INF/toutatice-acrennes-addons-toutapad-eventlisteners-contrib.xml
  
