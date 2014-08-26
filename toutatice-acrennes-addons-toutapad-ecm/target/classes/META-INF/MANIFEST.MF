@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Built-By: mberhaut1
-Build-Jdk: 1.6.0_45
-Bundle-ManifestVersion: 2
-Bundle-Version: ${eclipseVersion}-t${buildNumber}
-Created-By: Maven Integration for Eclipse
-
