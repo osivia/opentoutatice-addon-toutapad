@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>toutatice-acrennes-addons.toutapad</groupId>
+	<artifactId>toutatice-acrennes-addons-toutapad-ecm</artifactId>
+	<name>Acrennes toutapad ecm</name>
+	<packaging>jar</packaging>
+	<description>ECM - Acrennes toutapad</description>
+	<version>1.0-RC1-SNAPSHOT</version>
+
+	<properties/>
+
+	<dependencies/>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<tagBase>http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags</tagBase>
+					<useReleaseProfile>false</useReleaseProfile>
+					<preparationGoals>clean install</preparationGoals>
+					<goals>deploy</goals>
+					<arguments>-Prelease</arguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<archive>
+						<manifestFile>
+							src/main/resources/META-INF/MANIFEST.MF
+						</manifestFile>
+						<manifestEntries>
+							<Bundle-Version>
+								${eclipseVersion}-t${buildNumber}
+							</Bundle-Version>
+							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/trunk</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>toutatice-releases</id>
+			<url>http://projet.toutatice.fr/nexus/content/repositories/toutatice-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>toutatice-snapshots</id>
+			<url>http://projet.toutatice.fr/nexus/content/repositories/toutatice-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
+
