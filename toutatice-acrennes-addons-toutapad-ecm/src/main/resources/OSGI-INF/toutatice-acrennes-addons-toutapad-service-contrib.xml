@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<component name="fr.toutatice.addons.toutapad.ecm.services.EtherpadClientServiceImpl">
+
+	<implementation class="fr.toutatice.addons.toutapad.ecm.services.EtherpadClientServiceImpl" />
+
+	<service>
+		<provide interface="fr.toutatice.addons.toutapad.ecm.services.EtherpadClientService" />
+	</service>
+
+	<extension-point name="EtherpadServers">
+		<object class="fr.toutatice.addons.toutapad.ecm.services.EtherpadClientServiceDescriptor" />
+	</extension-point>
+  	
+</component>

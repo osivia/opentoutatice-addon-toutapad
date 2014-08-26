@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="fr.toutatice.addons.toutapad.ecm.client.config">
+
+	<require>fr.toutatice.addons.toutapad.ecm.services.EtherpadClientServiceImpl</require>
+
+	<extension target="fr.toutatice.addons.toutapad.ecm.services.EtherpadClientServiceImpl"
+		point="EtherpadServers">
+
+		<EtherpadServer name="server-1" default="true" enabled="true">
+			<serverURL>http://etherpad.toutatice.fr</serverURL>
+			<prefixURL>/p/</prefixURL>
+			<apiKey>e86b9ca8441eabf65354c6accfc8f57f8eb7313dbcf453d105611124c60ecff2</apiKey>
+		</EtherpadServer>
+	</extension>
+	
+</component>
