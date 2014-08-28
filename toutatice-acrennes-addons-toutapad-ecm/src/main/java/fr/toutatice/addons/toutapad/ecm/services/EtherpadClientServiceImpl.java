@@ -68,22 +68,47 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 	}
 
 	public void createPAD(DocumentModel document) throws ClientException {
+		// créer le PAD
 		getClient().createPad(document.getId());
+		
+//		// initialiser le message d'accueil
+//		String welcomeMessage = getDescriptor().getWelcomeMessage();
+//		if (StringUtils.isNotBlank(welcomeMessage)) {
+//			getClient().setText(document.getId(), welcomeMessage);
+//		}
 	}
 
 	public void deletePAD(DocumentModel document) throws ClientException {
 		getClient().deletePad(document.getId());
 	}
 
-	public Map getPADContent(DocumentModel document) throws ClientException {
-		return getClient().getText(document.getId());
+	@SuppressWarnings("unchecked")
+	public String getPADContent(DocumentModel document, String mimetype) throws ClientException {
+		String content = "";
+		
+		if (mimetype.equals(EtherpadClientService.PAD_CONTENT_MIME_TYPE_HTML)) {
+			Map<String, String>  map = getClient().getHTML(document.getId());
+			content = map.get("html");
+		} else if (mimetype.equals(EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT)) {
+			Map<String, String>  map = getClient().getText(document.getId());
+			content = map.get("text");
+		} else {
+			log.debug("Not support mimetype: " + mimetype);
+		}
+		
+		return content;
 	}
 
-	public boolean doPADExists() throws ClientException {
-		// TODO Auto-generated method stub
-		return true;
+	public String getPADURL(DocumentModel document) throws ClientException {
+		return getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + document.getId();
 	}
 
+	public String getPADReadOnlyURL(DocumentModel document)	throws ClientException {
+		HashMap map = getClient().getReadOnlyID(document.getId());
+		String roID = (String) map.get("readOnlyID");
+		return getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + roID;
+	}
+	
 	private EtherpadClientServiceDescriptor getDescriptor() throws ClientException {
 		if (StringUtils.isNotBlank(this.serverName)) {
 			return this.descriptors.get(this.serverName);
@@ -96,7 +121,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		try {
 			this.client = new EPLiteClient(getDescriptor().getServerURL(), getDescriptor().getApiKey());
 		} catch (Exception e) {
-			log.error("Failed to instanciate Etherpad client, error: " + e.getMessage());
+			throw new ClientException("Failed to instanciate Etherpad client, error: " + e.getMessage());
 		}
 	}
 	

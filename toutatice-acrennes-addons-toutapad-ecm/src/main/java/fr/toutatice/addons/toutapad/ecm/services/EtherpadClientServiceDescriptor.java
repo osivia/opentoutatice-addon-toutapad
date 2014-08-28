@@ -23,6 +23,9 @@ public class EtherpadClientServiceDescriptor {
 	@XNode("apiKey")
 	private String apiKey;
 
+	@XNode("welcomeMessage")
+	private String welcomeMessage;
+
 	public String getName() {
 		return name;
 	}
@@ -69,6 +72,14 @@ public class EtherpadClientServiceDescriptor {
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
+	}
+
+	public String getWelcomeMessage() {
+		return welcomeMessage;
+	}
+
+	public void setWelcomeMessage(String welcomeMessage) {
+		this.welcomeMessage = welcomeMessage;
 	}
 
 }

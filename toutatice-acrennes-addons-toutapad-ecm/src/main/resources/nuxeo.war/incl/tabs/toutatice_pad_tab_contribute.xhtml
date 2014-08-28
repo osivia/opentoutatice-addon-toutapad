@@ -1,0 +1,18 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:c="http://java.sun.com/jstl/core">
+
+	<c:choose>
+		<c:when test="#{toutapadActions.isPADAvailable()}">
+			<iframe name='toutapad_write_iframe' src='#{toutapadActions.getPADURL()}?showControls=true&amp;showChat=true&amp;showLineNumbers=true&amp; useMonospaceFont=false&amp;userName=#{currentUser.name}' width='100%' height='100%' style='min-height:600px'></iframe>
+		</c:when>
+		<c:otherwise>
+			<div class="toutapadServerNotAvailable" style="background-color: rgb(255, 107, 107);padding: 10px;font-weight: bold;font-size: 16px;">
+				<h:outputText value="#{messages['toutatice.acrennes.addons.toutapad.msg.etherpad.not.available']}" />
+			</div>
+		</c:otherwise>
+	</c:choose>		
+
+</div>

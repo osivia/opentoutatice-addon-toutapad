@@ -7,7 +7,6 @@ Bundle-Localization: plugin
 Bundle-Vendor: Acarennes
 Bundle-Category: stateful
 Nuxeo-Component: OSGI-INF/toutatice-acrennes-addons-toutapad-service-contrib.xml,
- OSGI-INF/toutatice-acrennes-addons-toutapad-client-contrib.xml,
  OSGI-INF/toutatice-acrennes-addons-toutapad-types-contrib.xml,
  OSGI-INF/toutatice-acrennes-addons-toutapad-layouts-contrib.xml,
  OSGI-INF/toutatice-acrennes-addons-toutapad-versioning-contrib.xml,

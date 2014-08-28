@@ -1,0 +1,36 @@
+<f:subview xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:a4j="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:nxh="http://nuxeo.org/nxweb/html"
+  xmlns:nxu="http://nuxeo.org/nxweb/util"
+  xmlns:nxdir="http://nuxeo.org/nxdirectory"
+  id="#{widget.id}">
+
+<!-- 
+	<h:outputLink value="#{toutapadActions.getPADURL()}"
+		target="blank" 
+		class="actionLink button"
+		title="#{messages['toutatice.acrennes.addons.toutapad.redirect.contribute']}">
+		<h:graphicImage value="/icons/voir-dans-le-portail.png" width="16" height="16"/>
+	</h:outputLink>
+ -->
+
+	<c:if test="#{widget.mode != 'create' and widget.mode != 'edit'}">
+		<c:set var="url" value="#{toutapadActions.getPADReadOnlyURL()}" />
+		<c:choose>
+			<c:when test="#{not empty url}">
+				<!-- This hidden input aims to trigger the synchronization between the Toutatice pad metadata and the associated pad -->
+				<input type="hidden" value="#{toutapadActions.getPADContent('text')}" />
+				
+				<iframe name='toutapad_readonly_iframe' src='#{url}?showControls=false&amp;showChat=false&amp;showLineNumbers=false&amp;useMonospaceFont=false' width='100%' height='100%' style='min-height:400px'></iframe>
+			</c:when>
+			<c:otherwise>
+				<div class="toutapadServerNotAvailable" style="background-color: rgb(255, 107, 107);padding: 10px;font-weight: bold;font-size: 16px;">
+					<h:outputText value="#{messages['toutatice.acrennes.addons.toutapad.msg.etherpad.not.available']}" />
+				</div>
+			</c:otherwise>
+		</c:choose>		
+	</c:if>
+		
+</f:subview>

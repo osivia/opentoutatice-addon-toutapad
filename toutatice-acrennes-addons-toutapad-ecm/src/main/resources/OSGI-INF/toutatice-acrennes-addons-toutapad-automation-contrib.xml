@@ -13,5 +13,11 @@
 		</chain>
 	
 	</extension>
-
+	
+	<extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="operations">
+	
+		<operation class="fr.toutatice.addons.toutapad.ecm.automation.ToutapadGetURL" />
+		
+	</extension>
+	
 </component>
