@@ -1,5 +1,7 @@
 package fr.toutatice.addons.toutapad.ecm.services;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,11 +74,16 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		// créer le PAD
 		getClient().createPad(document.getId());
 		
-//		// initialiser le message d'accueil
-//		String welcomeMessage = getDescriptor().getWelcomeMessage();
-//		if (StringUtils.isNotBlank(welcomeMessage)) {
-//			getClient().setText(document.getId(), welcomeMessage);
-//		}
+		// initialiser le message d'accueil
+		try {
+			String welcomeMessage = getDescriptor().getWelcomeMessage();
+			welcomeMessage = URLEncoder.encode(welcomeMessage, "UTF-8");
+			if (StringUtils.isNotBlank(welcomeMessage)) {
+				getClient().setHTML(document.getId(), welcomeMessage);
+			}
+		} catch (UnsupportedEncodingException e) {
+			log.error("Failed to set the default welcome message as defined whitin the configuration file");
+		}
 	}
 
 	public void deletePAD(DocumentModel document) throws ClientException {
