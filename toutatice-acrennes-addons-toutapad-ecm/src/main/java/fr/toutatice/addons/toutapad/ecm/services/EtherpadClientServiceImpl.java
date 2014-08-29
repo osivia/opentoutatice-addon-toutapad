@@ -17,6 +17,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 
 	private static final Log log = LogFactory.getLog(EtherpadClientServiceImpl.class);
 	private static final String EXTENSION_POINT_SERVER = "EtherpadServers";
+	private static final String URL_READ_ONLY_PARAMETERS = "?showControls=false&amp;showChat=false&amp;showLineNumbers=false&amp;useMonospaceFont=false";
 
 	private Map<String, EtherpadClientServiceDescriptor> descriptors;
 	private EPLiteClient client;
@@ -106,7 +107,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 	public String getPADReadOnlyURL(DocumentModel document)	throws ClientException {
 		HashMap map = getClient().getReadOnlyID(document.getId());
 		String roID = (String) map.get("readOnlyID");
-		return getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + roID;
+		return getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + roID + URL_READ_ONLY_PARAMETERS;
 	}
 	
 	private EtherpadClientServiceDescriptor getDescriptor() throws ClientException {

@@ -368,6 +368,12 @@
 					</properties>
 					<widget>toutapad_content</widget>
 				</row>
+				<row>
+					<properties mode="any">
+						<property name="nxl_colspan_0">1</property>
+					</properties>
+					<widget>toutapad_share</widget>
+				</row>
 			</rows>
 			<widget name="toutapad_content" type="template">
 				<labels>
@@ -378,6 +384,19 @@
 				<properties widgetMode="any">
 					<property name="template">/widgets/toutatice_pad_widget.xhtml</property>
 				</properties>
+			</widget>
+			<widget name="toutapad_share" type="actions">
+				<labels>
+					<label mode="any"></label>
+				</labels>
+				<translated>false</translated>
+				<fields/>
+				<properties widgetMode="any">
+					<property name="actions">#{webActions.getActionsList('TOUTATICE_PAD_VIEW_DOCUMENT_ACTIONS')}</property>
+        			<property name="subStyleClass">contextActions</property>
+        			<property name="actionsDisplay">buttons</property>
+        			<property name="overallDisplay">horizontal_block</property>
+        		</properties>
 			</widget>
 		</layout>
 
