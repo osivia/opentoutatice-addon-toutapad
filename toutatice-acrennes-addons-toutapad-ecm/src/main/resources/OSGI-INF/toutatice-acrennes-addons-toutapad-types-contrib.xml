@@ -14,8 +14,8 @@
 		<type id="ToutaticePad">
 			<label>Pad toutatice</label>
 			<category>SimpleDocument</category>
-			<icon>/icons/PortalPage.png</icon>
-			<bigIcon>/icons/PortalPage_100.png</bigIcon>
+			<icon>/icons/Toutapad_16.png</icon>
+			<bigIcon>/icons/Toutapad_100.png</bigIcon>
 			<description></description>
 			<default-view>view_documents</default-view>
 			<layouts mode="create">
@@ -35,8 +35,8 @@
 		<type id="ToutaticePadFolder">
 			<label>Dossier de PADs Toutatice</label>
 			<category>SimpleDocument</category>
-			<icon>/icons/folder.gif</icon>
-			<bigIcon>/icons/folder_100.png</bigIcon>
+			<icon>/icons/ToutapadFolder_16.png</icon>
+			<bigIcon>/icons/ToutapadFolder_100.png</bigIcon>
 			<icon-expanded>/icons/folder_open.gif</icon-expanded>
 			<description>Dossier pouvant contenir des PADs Toutatice</description>
 			<default-view>view_documents</default-view>
