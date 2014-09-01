@@ -26,6 +26,9 @@ public class EtherpadClientServiceDescriptor {
 	@XNode("welcomeMessage")
 	private String welcomeMessage;
 
+	@XNode("synchronizationCron")
+	private String synchronizationCron;
+
 	public String getName() {
 		return name;
 	}
@@ -80,6 +83,14 @@ public class EtherpadClientServiceDescriptor {
 
 	public void setWelcomeMessage(String welcomeMessage) {
 		this.welcomeMessage = welcomeMessage;
+	}
+
+	public String getSynchronizationCron() {
+		return synchronizationCron;
+	}
+
+	public void setSynchronizationCron(String synchronizationCron) {
+		this.synchronizationCron = synchronizationCron;
 	}
 
 }

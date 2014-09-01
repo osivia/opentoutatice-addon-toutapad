@@ -20,6 +20,14 @@
 			priority="200">
 			<event>documentRemoved</event>
 		</listener>
+
+		<listener name="TOUTATICE_SYNCHRONIZE_PAD_EVENT_LISTENER" 
+			async="false" 
+			postCommit="false"
+			class="fr.toutatice.addons.toutapad.ecm.listeners.ToutapadEventListenerSynchronizePad"
+			priority="1000">
+			<event>toutaticePadEventSynchronize</event>
+		</listener>
 		
 	</extension>
 

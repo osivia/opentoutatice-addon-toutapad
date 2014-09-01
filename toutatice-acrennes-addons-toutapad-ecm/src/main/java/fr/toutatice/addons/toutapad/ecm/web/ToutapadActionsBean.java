@@ -19,6 +19,7 @@ import org.nuxeo.ecm.core.versioning.VersioningService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.runtime.api.Framework;
 
+import fr.toutatice.addons.toutapad.ecm.helpers.ToutapadDocumentHelper;
 import fr.toutatice.addons.toutapad.ecm.services.EtherpadClientService;
 import fr.toutatice.ecm.platform.core.helper.ToutaticeSilentProcessRunnerHelper;
 
@@ -28,14 +29,6 @@ public class ToutapadActionsBean implements ToutapadActions, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private static final Log log = LogFactory.getLog(ToutapadActionsBean.class);
-	private static final List<Class<?>> FILTERED_SERVICES_LIST = new ArrayList<Class<?>>() {
-		private static final long serialVersionUID = 1L;
-
-		{
-			add(EventService.class);
-			add(VersioningService.class);
-		}
-	};
 
     @In(create = true)
     protected transient NavigationContext navigationContext;
@@ -76,9 +69,7 @@ public class ToutapadActionsBean implements ToutapadActions, Serializable {
 			content = getPADClientService().getPADContent(currentDoc, mimetype);
 			
 			// synchronize the current Toutatice pad document metadata with the Etherpad pad content
-			if (null != content) {
-				synchronizePadContent(currentDoc, content);
-			}
+			ToutapadDocumentHelper.synchronizePad(currentDoc.getCoreSession(), currentDoc, content);
 		} catch (Exception e) {
 			log.error("Failed to get the current document pad content, error: " + e.getMessage());
 		}
@@ -99,30 +90,7 @@ public class ToutapadActionsBean implements ToutapadActions, Serializable {
 		
 		return status;
 	}
-	
-	private void synchronizePadContent(DocumentModel document, String padContent) throws ClientException {
-		ToutaticeSilentProcessRunnerHelper runner = new PadSynchronizationRunner(document.getCoreSession(), document, padContent);
-		runner.silentRun(true, FILTERED_SERVICES_LIST);
-	}
-	
-	private class PadSynchronizationRunner extends ToutaticeSilentProcessRunnerHelper {
-		private DocumentModel document;
-		private String content;
-
-		public PadSynchronizationRunner(CoreSession session, DocumentModel document, String content) {
-			super(session);
-			this.document = document;
-			this.content = content;
-		}
-
-		@Override
-		public void run() throws ClientException {
-			this.document.setPropertyValue("note:note", this.content);
-			this.session.saveDocument(this.document);
-		}
 		
-	}
-	
     private EtherpadClientService getPADClientService() throws ClientException {
     	try {
     		if (null == this.padService) {
