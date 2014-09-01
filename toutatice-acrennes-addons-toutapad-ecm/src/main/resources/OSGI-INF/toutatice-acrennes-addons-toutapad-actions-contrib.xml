@@ -65,12 +65,44 @@
 			</properties>
 		</action> 
   
+  		<!-- Désactivation des actions open toutatice ou ACRENNES non relevant -->
+  		<action id="direct_validation" append="true">
+  			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
+		</action>
+
+		<action id="TAB_PUBLISH" append="true">
+			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
+		</action>
+
+		<action id="TAB_FILES_EDIT" append="true">
+			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
+		</action>
+
+		<action id="TAB_RELATIONS" append="true">
+			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
+		</action>
+
+		<action id="acaren_summary_current_document_files" append="true">
+			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
+		</action>
+		
+		<action id="acaren_widget_summary_current_document_images" append="true">
+			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
+		</action>
+		
 	</extension>
 	
 	<extension target="org.nuxeo.ecm.platform.actions.ActionService" point="filters">
 
 		<filter id="create" append="true">
 			<rule grant="false">
+				<type>ToutaticePadFolder</type>
+			</rule>
+		</filter>
+
+		<filter id="FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS">
+			<rule grant="false">
+				<type>ToutaticePad</type>
 				<type>ToutaticePadFolder</type>
 			</rule>
 		</filter>
