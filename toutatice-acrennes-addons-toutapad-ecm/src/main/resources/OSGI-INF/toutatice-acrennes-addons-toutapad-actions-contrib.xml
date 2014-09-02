@@ -65,11 +65,15 @@
 			</properties>
 		</action> 
   
-  		<!-- Désactivation des actions open toutatice ou ACRENNES non relevant -->
+  		<!-- Désactivation des actions open toutatice ou ACRENNES non "relevant" -->
   		<action id="direct_validation" append="true">
   			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
 		</action>
-
+		
+		<action id="workflow_validation_demand" append="true">
+			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
+		</action>
+		
 		<action id="TAB_PUBLISH" append="true">
 			<filter-id>FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS</filter-id>
 		</action>
