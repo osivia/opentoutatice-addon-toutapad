@@ -15,7 +15,10 @@ import org.nuxeo.runtime.api.Framework;
 
 import fr.toutatice.addons.toutapad.ecm.services.EtherpadClientService;
 
-@Operation(id = ToutapadGetURL.ID, category = Constants.CAT_DOCUMENT, label = "ToutapadGetURL", description = "Fetch the Toutatice PAD URL of the document passed_in parameter. The input document is returned.")
+@Operation(id = ToutapadGetURL.ID, category = Constants.CAT_DOCUMENT, label = "ToutapadGetURL", description = "Fetch the Toutatice PAD URL of the document passed_in parameter. "
+		+ "Parameters: 'AccessType' defines which type of URL/access is desired (possible values: 'Write' and 'RestrictedRead'). As default, read only. "
+		+ "'Authentified' whether the URL parameters must include the connected user login or not. As default, no. "
+		+ "The input document is returned.")
 public class ToutapadGetURL {
 	public static final String ID = "Document.ToutapadGetURL";
 
@@ -23,6 +26,9 @@ public class ToutapadGetURL {
 
 	@Param(name = "AccessType", required = false, values = { SecurityConstants.WRITE, SecurityConstants.RESTRICTED_READ })
 	protected String AccessType = SecurityConstants.RESTRICTED_READ;
+
+	@Param(name = "Authentified", required = false)
+	protected boolean Authentified = false;
 
 	@OperationMethod
     public Blob run(DocumentModel document) throws Exception {
@@ -33,7 +39,9 @@ public class ToutapadGetURL {
 			if (null == AccessType || SecurityConstants.RESTRICTED_READ.equals(AccessType)) {
 				URL = service.getPADReadOnlyURL(document);
 			} else if (SecurityConstants.WRITE.equals(AccessType)) {
-				URL = service.getPADURL(document);
+				URL = service.getPADURL(document, Authentified);
+			} else {
+				log.debug("Wrong parameter value AccessType = " + AccessType);
 			}
 		} catch (Exception e) {
 			log.warn("Failed to get the Toutapad URL, error: " + e.getMessage());

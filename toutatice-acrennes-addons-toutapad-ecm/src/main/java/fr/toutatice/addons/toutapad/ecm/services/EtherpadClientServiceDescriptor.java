@@ -29,6 +29,9 @@ public class EtherpadClientServiceDescriptor {
 	@XNode("synchronizationCron")
 	private String synchronizationCron;
 
+	@XNode("contributionFormUrl")
+	private String contributionFormUrl;
+
 	public String getName() {
 		return name;
 	}
@@ -93,4 +96,12 @@ public class EtherpadClientServiceDescriptor {
 		this.synchronizationCron = synchronizationCron;
 	}
 
+	public String getContributionFormUrl() {
+		return contributionFormUrl;
+	}
+
+	public void setContributionFormUrl(String contributionFormUrl) {
+		this.contributionFormUrl = contributionFormUrl;
+	}
+	
 }

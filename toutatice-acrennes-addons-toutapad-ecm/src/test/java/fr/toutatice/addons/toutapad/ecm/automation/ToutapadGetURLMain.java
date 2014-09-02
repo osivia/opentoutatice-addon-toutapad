@@ -20,9 +20,10 @@ public class ToutapadGetURLMain {
 			Assert.assertNotNull(session);
 
 			OperationRequest request = session.newRequest(ToutapadGetURL.ID);
-			PathRef input = new PathRef("/default-domain/espace-de-travail/dossier-de-pads/pad-1");
+			PathRef input = new PathRef("/default-domain/espace-de-travail/dossiers-de-pads/pad-3.1409583715814");
 			request.setInput(input);
 			request.set("AccessType", SecurityConstants.WRITE);
+			request.set("Authentified", true);
 			
 			Object response = request.execute();
 			Assert.assertTrue(null != response);

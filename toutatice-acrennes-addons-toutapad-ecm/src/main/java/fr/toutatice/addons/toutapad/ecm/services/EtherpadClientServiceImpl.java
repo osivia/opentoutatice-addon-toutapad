@@ -23,8 +23,6 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 
 	private static final Log log = LogFactory.getLog(EtherpadClientServiceImpl.class);
 	private static final String EXTENSION_POINT_SERVER = "EtherpadServers";
-	private static final String URL_READ_ONLY_PARAMETERS = "?showControls=false&amp;showChat=false&amp;showLineNumbers=false&amp;useMonospaceFont=false";
-	private static final String URL_WRITE_PARAMETERS = "?showControls=true&amp;showChat=true&amp;showLineNumbers=true&amp;useMonospaceFont=false&amp;userName=%s";
 
 	private Map<String, EtherpadClientServiceDescriptor> descriptors;
 	private EPLiteClient client;
@@ -112,7 +110,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 			Map<String, String>  map = getClient().getHTML(document.getId());
 			content = map.get("html");
 		} else if (mimetype.equals(EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT)) {
-			Map<String, String>  map = getClient().getText(document.getId());
+			Map<String, String> map = getClient().getText(document.getId());
 			content = map.get("text");
 		} else {
 			log.debug("Not support mimetype: " + mimetype);
@@ -121,17 +119,36 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		return content;
 	}
 
-	public String getPADURL(DocumentModel document) throws ClientException {
-		String url = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + document.getId();
-		Principal principal = document.getCoreSession().getPrincipal();
-		return String.format(url + URL_WRITE_PARAMETERS, principal.getName());
+	public String getPADURL(DocumentModel document, boolean authentified) throws ClientException {
+		String padUrl = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + document.getId();
+		padUrl = padUrl.concat(EtherpadClientService.URL_WRITE_PARAMETERS);
+		if (authentified) {
+			Principal principal = document.getCoreSession().getPrincipal();
+			padUrl = padUrl.concat(String.format(EtherpadClientService.URL_IDENTIFICATION_PARAMETER, principal.getName()));
+		}
+		return padUrl;
 	}
 
 	public String getPADReadOnlyURL(DocumentModel document)	throws ClientException {
+		@SuppressWarnings("rawtypes")
 		HashMap map = getClient().getReadOnlyID(document.getId());
 		String roID = (String) map.get("readOnlyID");
-		String url = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + roID;
-		return url + URL_READ_ONLY_PARAMETERS;
+		String padUrl = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + roID;
+		return padUrl + EtherpadClientService.URL_READ_ONLY_PARAMETERS;
+	}
+	
+	public String getPADPublicURL(DocumentModel document) throws ClientException {
+		String padAnonymousUrl = getPADURL(document, false);
+		String publicFormUrl = getDescriptor().getContributionFormUrl();
+		String url = null;
+		
+		try {
+			url = (StringUtils.isNotBlank(publicFormUrl) ? publicFormUrl + URLEncoder.encode(padAnonymousUrl, "UTF-8") : padAnonymousUrl);
+		} catch (UnsupportedEncodingException e) {
+			throw new ClientException("Failed to obtain the public PAD URL, error: ", e);
+		}
+		
+		return url;
 	}
 	
 	private EtherpadClientServiceDescriptor getDescriptor() throws ClientException {

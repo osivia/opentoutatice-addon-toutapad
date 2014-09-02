@@ -3,8 +3,6 @@ package fr.toutatice.addons.toutapad.ecm.web;
 import static org.jboss.seam.ScopeType.CONVERSATION;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,16 +10,12 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.event.EventService;
-import org.nuxeo.ecm.core.versioning.VersioningService;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.runtime.api.Framework;
 
 import fr.toutatice.addons.toutapad.ecm.helpers.ToutapadDocumentHelper;
 import fr.toutatice.addons.toutapad.ecm.services.EtherpadClientService;
-import fr.toutatice.ecm.platform.core.helper.ToutaticeSilentProcessRunnerHelper;
 
 @Name("toutapadActions")
 @Scope(CONVERSATION)
@@ -40,7 +34,7 @@ public class ToutapadActionsBean implements ToutapadActions, Serializable {
 		
 		try {
 			DocumentModel currentDoc = navigationContext.getCurrentDocument();
-			URL = getPADClientService().getPADURL(currentDoc);
+			URL = getPADClientService().getPADURL(currentDoc, true);
 		} catch (Exception e) {
 			log.error("Failed to get the current document pad URL, error: " + e.getMessage());
 		}
@@ -56,6 +50,19 @@ public class ToutapadActionsBean implements ToutapadActions, Serializable {
 			URL = getPADClientService().getPADReadOnlyURL(currentDoc);
 		} catch (Exception e) {
 			log.error("Failed to get the current document pad read only URL, error: " + e.getMessage());
+		}
+		
+		return URL;
+	}
+
+	public String getPADPublicURL() {
+		String URL = "";
+		
+		try {
+			DocumentModel currentDoc = navigationContext.getCurrentDocument();
+			URL = getPADClientService().getPADPublicURL(currentDoc);
+		} catch (Exception e) {
+			log.error("Failed to get the current document pad public URL, error: " + e.getMessage());
 		}
 		
 		return URL;
