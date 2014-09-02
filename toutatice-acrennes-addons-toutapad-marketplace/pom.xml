@@ -7,7 +7,7 @@
 	</parent>
 
 	<artifactId>toutatice-acrennes-addons-toutapad-marketplace</artifactId>
-	<version>1.0-RC3-SNAPSHOT</version>
+	<version>1.0-RC3</version>
 	<packaging>zip</packaging>
 	<name>Marketplace package - Acrennes toutapad</name>
 
@@ -26,9 +26,9 @@
 	</build>
 	
 	<scm>
-		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/trunk</developerConnection>
-	  <connection>scm:git:git://github.com/nuxeo/nuxeo-distribution.git/toutatice-acrennes-addons-toutapad-marketplace</connection>
-    <url>https://github.com/nuxeo/nuxeo-distribution/toutatice-acrennes-addons-toutapad-marketplace</url>
+		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags/1.0-RC3/trunk</developerConnection>
+	  <connection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags/1.0-RC3/toutatice-acrennes-addons-toutapad-marketplace</connection>
+    <url>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags/1.0-RC3/toutatice-acrennes-addons-toutapad-marketplace</url>
   </scm>
 
 	<distributionManagement>
