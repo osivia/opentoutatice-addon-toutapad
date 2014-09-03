@@ -2,7 +2,8 @@
 <component name="fr.toutatice.addons.toutapad.ecm.layouts.config">
 
 	<require>org.nuxeo.ecm.platform.forms.layout.WebLayoutManager</require>
-
+	<require>fr.toutatice.ecm.platform.web.contextualization.widgets</require>
+	
 	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
 		point="layouts">
 		
@@ -13,16 +14,13 @@
 			</templates>
 			<rows>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>title</widget>
 				</row>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>description</widget>
+				</row>
+				<row>
+					<widget>toutatice_showInMenu_widget</widget>
 				</row>
 			</rows>
 			<widget name="title" type="text">
@@ -61,16 +59,13 @@
 			</templates>
 			<rows>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>title</widget>
 				</row>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>description</widget>
+				</row>
+				<row>
+					<widget>toutatice_showInMenu_widget</widget>
 				</row>
 			</rows>
 			<widget name="title" type="text">
@@ -109,10 +104,7 @@
 			</templates>
 			<rows>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
-					<widget />
+					<widget/>
 				</row>
 			</rows>
 		</layout>
@@ -124,37 +116,14 @@
 			</templates>
 			<rows>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>title</widget>
 				</row>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>description</widget>
 				</row>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>toutapad_vignette</widget>
 				</row>
-				<!-- 
-				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
-					<widget>layout</widget>
-				</row>
-				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
-					<widget>layout_1</widget>
-				</row>
-				 -->
 			</rows>
 			<widget name="title" type="text">
 				<labels>
@@ -244,37 +213,14 @@
 			</templates>
 			<rows>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>title</widget>
 				</row>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>description</widget>
 				</row>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>toutapad_vignette</widget>
 				</row>
-				<!-- 
-				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
-					<widget>layout</widget>
-				</row>
-				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
-					<widget>layout_1</widget>
-				</row>
-				 -->
 			</rows>
 			<widget name="title" type="text">
 				<labels>
@@ -363,15 +309,9 @@
 			</templates>
 			<rows>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>toutapad_content</widget>
 				</row>
 				<row>
-					<properties mode="any">
-						<property name="nxl_colspan_0">1</property>
-					</properties>
 					<widget>toutapad_share</widget>
 				</row>
 			</rows>

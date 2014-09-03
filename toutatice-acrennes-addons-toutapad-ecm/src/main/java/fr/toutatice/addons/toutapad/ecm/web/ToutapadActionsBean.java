@@ -89,8 +89,10 @@ public class ToutapadActionsBean implements ToutapadActions, Serializable {
 		
 		try {
 			DocumentModel currentDoc = navigationContext.getCurrentDocument();
-			getPADClientService().getPADContent(currentDoc, EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT);
-			status = true;
+			if ("ToutaticePad".equals(currentDoc.getType())) {
+				getPADClientService().getPADContent(currentDoc, EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT);
+				status = true;
+			}
 		} catch (Exception e) {
 			log.error("Error status of the Etherpad server, error: " + e.getMessage());
 		}
