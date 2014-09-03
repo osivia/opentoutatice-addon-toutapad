@@ -108,7 +108,7 @@
 
 		<filter id="FILTER_TOUTAPAD_SERVICE_AVAILABLE">
 			<rule grant="false">
-				<condition>#{false == toutapadActions.isPADAvailable()}</condition>
+				<condition>#{toutapadActions.isPADAvailable() == false}</condition>
 			</rule>
 		</filter>
 
