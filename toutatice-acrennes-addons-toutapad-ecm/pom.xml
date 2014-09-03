@@ -7,7 +7,7 @@
 	<name>Acrennes toutapad ecm</name>
 	<packaging>jar</packaging>
 	<description>ECM - Acrennes toutapad</description>
-	<version>1.0-RC4-SNAPSHOT</version>
+	<version>1.0-RC04</version>
 
 	<properties>
 		<nuxeo.version>5.6.0-HF29</nuxeo.version>
@@ -97,7 +97,7 @@
 	</build>
 
 	<scm>
-		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/trunk</developerConnection>
+		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags/1.0-RC04/trunk</developerConnection>
 	</scm>
 
 	<distributionManagement>
