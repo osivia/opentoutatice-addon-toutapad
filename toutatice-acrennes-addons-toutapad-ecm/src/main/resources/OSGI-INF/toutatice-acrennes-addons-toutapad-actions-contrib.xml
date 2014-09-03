@@ -31,9 +31,9 @@
 			<filter id="filter@CONTRIBUTE_TO_TOUTATICE_PAD">
 				<rule grant="true">
 					<type>ToutaticePad</type>
-					<condition>#{toutapadActions.isPADAvailable()}</condition>
 				</rule>
 			</filter>
+			<filter-id>FILTER_TOUTAPAD_SERVICE_AVAILABLE</filter-id>
 			<filter-id>mutable_document</filter-id>
 		</action>
 
@@ -44,7 +44,8 @@
 			icon="/icons/contextual_menu/share.png" 
 			accessKey="k">
 			<category>TOUTATICE_PAD_VIEW_DOCUMENT_ACTIONS</category>
-			<filter-id>isToutapadManager</filter-id>
+			<filter-id>FILTER_IS_TOUTAPAD_MANAGER</filter-id>
+			<filter-id>FILTER_TOUTAPAD_SERVICE_AVAILABLE</filter-id>
 			<properties>
 				<property name="include">/incl/toutatice_pad_permalink_box_write.xhtml</property>
 				<property name="ajaxSupport">true</property>
@@ -58,7 +59,8 @@
 			icon="/icons/contextual_menu/share.png" 
 			accessKey="k">
 			<category>TOUTATICE_PAD_VIEW_DOCUMENT_ACTIONS</category>
-			<filter-id>isToutapadManager</filter-id>
+			<filter-id>FILTER_IS_TOUTAPAD_MANAGER</filter-id>
+			<filter-id>FILTER_TOUTAPAD_SERVICE_AVAILABLE</filter-id>
 			<properties>
 				<property name="include">/incl/toutatice_pad_permalink_box_readonly.xhtml</property>
 				<property name="ajaxSupport">true</property>
@@ -104,6 +106,12 @@
 			</rule>
 		</filter>
 
+		<filter id="FILTER_TOUTAPAD_SERVICE_AVAILABLE">
+			<rule grant="false">
+				<condition>#{false == toutapadActions.isPADAvailable()}</condition>
+			</rule>
+		</filter>
+
 		<filter id="FILTER_NON_RELEVANT_TOUTATICE_PAD_ACTIONS">
 			<rule grant="false">
 				<type>ToutaticePad</type>
@@ -111,7 +119,7 @@
 			</rule>
 		</filter>
 
-		<filter id="isToutapadManager">
+		<filter id="FILTER_IS_TOUTAPAD_MANAGER">
 			<rule grant="true">
 				<condition>#{userSession.administrator}</condition>
 				<condition>#{currentNuxeoPrincipal.isMemberOf('Administrators')}</condition>
