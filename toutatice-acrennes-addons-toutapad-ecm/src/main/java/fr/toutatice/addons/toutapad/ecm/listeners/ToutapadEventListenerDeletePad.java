@@ -22,7 +22,9 @@ public class ToutapadEventListenerDeletePad implements EventListener {
 			if (event.getContext() instanceof DocumentEventContext) {
 				DocumentEventContext eventContext = (DocumentEventContext) event.getContext();
 				DocumentModel document = eventContext.getSourceDocument();
-				getEtherpadClientService().deletePAD(document);
+				if ("Toutapad".equals(document.getType())) {
+					getEtherpadClientService().deletePAD(document);
+				}
 			}
 		} catch (Exception e) {
 			log.warn("Failed to delete a pad (but it might not exist), cause: " + e.getMessage());
