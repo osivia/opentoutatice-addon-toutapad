@@ -26,14 +26,15 @@ public class ToutapadEventListenerCreatePad implements EventListener {
 		if (event.getContext() instanceof DocumentEventContext) {
 			DocumentEventContext eventContext = (DocumentEventContext) event.getContext();
 			DocumentModel document = eventContext.getSourceDocument();
-
-			try {
-				getEtherpadClientService().createPAD(document);
-			} catch (Exception e) {
-				log.error("Failed to create a pad, error: " + e.getMessage());
-				event.markRollBack("Impossible de créer le PAD '" + document.getTitle() + "'", e);
-				String message = ComponentUtils.translate(FacesContext.getCurrentInstance(), "toutatice.acrennes.addons.toutapad.msg.create.error");
-				FacesMessages.instance().add(StatusMessage.Severity.ERROR, message);			
+			if ("Toutapad".equals(document.getType())) {
+				try {
+					getEtherpadClientService().createPAD(document);
+				} catch (Exception e) {
+					log.error("Failed to create a pad, error: " + e.getMessage());
+					event.markRollBack("Impossible de créer le PAD '" + document.getTitle() + "'", e);
+					String message = ComponentUtils.translate(FacesContext.getCurrentInstance(), "toutatice.acrennes.addons.toutapad.msg.create.error");
+					FacesMessages.instance().add(StatusMessage.Severity.ERROR, message);			
+				}
 			}
 		}
 	}
