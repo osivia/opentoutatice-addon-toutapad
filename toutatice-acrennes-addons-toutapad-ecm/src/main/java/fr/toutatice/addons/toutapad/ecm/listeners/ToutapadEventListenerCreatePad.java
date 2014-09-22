@@ -26,7 +26,7 @@ public class ToutapadEventListenerCreatePad implements EventListener {
 		if (event.getContext() instanceof DocumentEventContext) {
 			DocumentEventContext eventContext = (DocumentEventContext) event.getContext();
 			DocumentModel document = eventContext.getSourceDocument();
-			if ("Toutapad".equals(document.getType())) {
+			if ("ToutaticePad".equals(document.getType())) {
 				try {
 					getEtherpadClientService().createPAD(document);
 				} catch (Exception e) {
