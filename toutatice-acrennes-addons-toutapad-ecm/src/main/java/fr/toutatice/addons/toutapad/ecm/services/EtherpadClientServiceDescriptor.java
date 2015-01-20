@@ -31,7 +31,10 @@ public class EtherpadClientServiceDescriptor {
 
 	@XNode("contributionFormUrl")
 	private String contributionFormUrl;
-
+	
+	@XNode("viewMode")
+	private String viewMode;
+	
 	public String getName() {
 		return name;
 	}
@@ -103,5 +106,13 @@ public class EtherpadClientServiceDescriptor {
 	public void setContributionFormUrl(String contributionFormUrl) {
 		this.contributionFormUrl = contributionFormUrl;
 	}
-	
+
+	public String getViewMode() {
+		return viewMode;
+	}
+
+	public void setViewMode(String viewMode) {
+		this.viewMode = viewMode;
+	}
+
 }

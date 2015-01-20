@@ -68,6 +68,18 @@ public class ToutapadActionsBean implements ToutapadActions, Serializable {
 		return URL;
 	}
 
+	public boolean isPADViewConnectedMode() {
+		boolean connected = false;
+		
+		try {
+			connected = getPADClientService().isPADViewConnectedMode();
+		} catch (Exception e) {
+			log.error("Failed to get the status of the view mode, error: " + e.getMessage());
+		}
+		
+		return connected;
+	}
+	
 	public String getPADContent(String mimetype) {
 		String content = "";
 		

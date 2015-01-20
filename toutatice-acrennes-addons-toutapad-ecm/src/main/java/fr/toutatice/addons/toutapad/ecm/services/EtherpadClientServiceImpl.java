@@ -6,9 +6,9 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.codehaus.plexus.util.StringUtils;
 import org.etherpad_lite_client.EPLiteClient;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -100,6 +100,11 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 
 	public void deletePAD(DocumentModel document) throws ClientException {
 		getClient().deletePad(document.getId());
+	}
+
+	public boolean isPADViewConnectedMode() throws ClientException {
+		String mode = getDescriptor().getViewMode();
+		return StringUtils.isNotBlank(mode) ? "connected".equals(mode) : false;
 	}
 
 	@SuppressWarnings("unchecked")

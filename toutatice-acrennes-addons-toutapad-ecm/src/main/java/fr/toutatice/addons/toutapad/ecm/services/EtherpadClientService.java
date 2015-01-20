@@ -17,5 +17,6 @@ public interface EtherpadClientService {
 	public String getPADURL(DocumentModel document, boolean authentified) throws ClientException;
 	public String getPADPublicURL(DocumentModel document) throws ClientException;
 	public String getPADReadOnlyURL(DocumentModel document) throws ClientException;
+	public boolean isPADViewConnectedMode() throws ClientException;
 	
 }
