@@ -32,8 +32,8 @@ public class EtherpadClientServiceDescriptor {
 	@XNode("contributionFormUrl")
 	private String contributionFormUrl;
 	
-	@XNode("viewMode")
-	private String viewMode;
+	@XNode("connectedView")
+	private boolean connectedView;
 	
 	public String getName() {
 		return name;
@@ -107,12 +107,12 @@ public class EtherpadClientServiceDescriptor {
 		this.contributionFormUrl = contributionFormUrl;
 	}
 
-	public String getViewMode() {
-		return viewMode;
+	public boolean isConnectedView() {
+		return connectedView;
 	}
 
-	public void setViewMode(String viewMode) {
-		this.viewMode = viewMode;
+	public void setConnectedView(boolean connectedView) {
+		this.connectedView = connectedView;
 	}
 
 }

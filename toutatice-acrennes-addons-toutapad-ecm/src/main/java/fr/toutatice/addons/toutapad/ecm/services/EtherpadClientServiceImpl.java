@@ -103,8 +103,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 	}
 
 	public boolean isPADViewConnectedMode() throws ClientException {
-		String mode = getDescriptor().getViewMode();
-		return StringUtils.isNotBlank(mode) ? "connected".equals(mode) : false;
+		return getDescriptor().isConnectedView();
 	}
 
 	@SuppressWarnings("unchecked")
