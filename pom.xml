@@ -5,7 +5,7 @@
 
 	<groupId>toutatice-acrennes-addons.toutapad</groupId>
 	<artifactId>toutatice-acrennes-addons-toutapad-parent</artifactId>
-	<version>1.2-RC02-SNAPSHOT</version>
+	<version>1.2-RC02</version>
 	<packaging>pom</packaging>
 	<name>Acrennes toutapad</name>
 	<description>Etherpad integration plugin for the Acrennes custom project</description>
@@ -32,7 +32,7 @@
 	</build>
 
 	<scm>
-		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/trunk</developerConnection>
+		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags/1.2-RC02</developerConnection>
 	</scm>
 
 	<distributionManagement>
