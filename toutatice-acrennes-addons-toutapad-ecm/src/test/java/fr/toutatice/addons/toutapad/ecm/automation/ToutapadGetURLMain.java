@@ -16,7 +16,7 @@ public class ToutapadGetURLMain {
 		HttpAutomationClient client = new HttpAutomationClient("http://localhost:8181/nuxeo/site/automation");
 
 		try {
-			Session session = client.getSession("mberhaut1", "labourat2013*");
+			Session session = client.getSession("nxberhaut", "BERHAUT");
 			Assert.assertNotNull(session);
 
 			OperationRequest request = session.newRequest(ToutapadGetURL.ID);

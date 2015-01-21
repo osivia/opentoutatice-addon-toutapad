@@ -15,10 +15,10 @@ import org.nuxeo.runtime.api.Framework;
 
 import fr.toutatice.addons.toutapad.ecm.services.EtherpadClientService;
 
-@Operation(id = ToutapadGetURL.ID, category = Constants.CAT_DOCUMENT, label = "ToutapadGetURL", description = "Fetch the Toutatice PAD URL of the document passed_in parameter. "
+@Operation(id = ToutapadGetURL.ID, category = Constants.CAT_DOCUMENT, label = "ToutapadGetURL", description = "Fetch the Toutatice PAD URL of the document passed-in parameter. "
 		+ "Parameters: 'AccessType' defines which type of URL/access is desired (possible values: 'Write' and 'RestrictedRead'). As default, read only. "
 		+ "'Authentified' whether the URL parameters must include the connected user login or not. As default, no. "
-		+ "The input document is returned.")
+		+ "A string blob containing the PAD URL is returned.")
 public class ToutapadGetURL {
 	public static final String ID = "Document.ToutapadGetURL";
 
@@ -44,7 +44,7 @@ public class ToutapadGetURL {
 				log.debug("Wrong parameter value AccessType = " + AccessType);
 			}
 		} catch (Exception e) {
-			log.warn("Failed to get the Toutapad URL, error: " + e.getMessage());
+			log.warn("Failed to get the PAD URL, error: " + e.getMessage());
 			throw new ClientException(e);
 		}
 		
