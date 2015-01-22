@@ -31,6 +31,7 @@
 			<filter id="filter@CONTRIBUTE_TO_TOUTATICE_PAD">
 				<rule grant="true">
 					<type>ToutaticePad</type>
+					<permission>Write</permission>
 				</rule>
 			</filter>
 			<filter-id>FILTER_TOUTAPAD_SERVICE_AVAILABLE</filter-id>
