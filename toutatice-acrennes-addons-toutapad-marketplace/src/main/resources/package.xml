@@ -17,8 +17,7 @@
 		<platform>cap-@DISTRIB_VERSION@</platform>
 	</platforms>
 	<dependencies>
-		<package>nuxeo-dm:@DISTRIB_VERSION@</package>
-		<package>acrennes-custom:2.3.6</package>
+		<package>acrennes-custom:3.0.0-RC01</package>
 	</dependencies>
 	<license>LGPL 2.1</license>
 	<license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>

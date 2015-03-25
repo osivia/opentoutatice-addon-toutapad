@@ -7,7 +7,8 @@
 	<taskdef resource="org/nuxeo/build/artifact/antlib.xml" uri="urn:nuxeo-artifact" />
 
 	<property name="outdir" value="${maven.project.build.directory}" />
-
+	<mkdir dir="${outdir}" />
+	
 	<target name="build" description="Build toutatice Toutapad Marketplace package">
 		<tstamp />
 		<delete failonerror="false" dir="${outdir}/marketplace" />
@@ -16,7 +17,7 @@
 			<fileset dir="src/main/resources" />
 			<filterset>
 				<filter token="VERSION" value="${maven.project.version}" />
-				<filter token="DISTRIB_VERSION" value="${nuxeo.distribution.version}" />
+				<filter token="DISTRIB_VERSION" value="${nuxeo.cap.distribution.version}" />
 			</filterset>
 		</copy>
 
@@ -27,15 +28,13 @@
 		
 		<!-- 3rd party libraries -->
 		<copy todir="${outdir}/marketplace/install/lib">
-			<artifact:resolveFile key="org:etherpad_lite_client:1.2:jar" />
-			<artifact:resolveFile key="org.jsoup:jsoup:1.6.3:jar" />
+			<artifact:resolveFile key="org:etherpad_lite_client:1.2.7:jar" />
+			<artifact:resolveFile key="com.googlecode.json-simple:json-simple:1.1.1.7:jar" />
+			<artifact:resolveFile key="org.jsoup:jsoup:1.8.1:jar" />
 		</copy>
 		
-		<zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
-			basedir="${outdir}/marketplace" />
-		<artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip"
-			target="${maven.project.groupId}:${maven.project.artifactId}"
-			type="zip" />
+		<zip destfile="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip" basedir="${outdir}/marketplace" />
+		<artifact:attach file="${outdir}/${maven.project.artifactId}-${maven.project.version}.zip" type="zip" />
 	</target>
 
 </project>

@@ -2,16 +2,18 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>toutatice-acrennes-addons.toutapad</groupId>
+	<parent>
+		<groupId>toutatice-acrennes-addons.toutapad</groupId>
+		<artifactId>toutatice-acrennes-addons-toutapad-parent</artifactId>
+		<version>2.0-RC01-SNAPSHOT</version>
+	</parent>
+
 	<artifactId>toutatice-acrennes-addons-toutapad-ecm</artifactId>
-	<name>Acrennes toutapad ecm</name>
 	<packaging>jar</packaging>
-	<description>ECM - Acrennes toutapad</description>
-	<version>1.4-RC01-SNAPSHOT</version>
+	<name>Acrennes toutapad ecm</name>
+	<description>Acrennes toutapad - ecm</description>
 
 	<properties>
-		<nuxeo.version>5.6.0-HF29</nuxeo.version>
-		<open.toutatice.version>1.2.1</open.toutatice.version>
 		<common.lang.version>2.6</common.lang.version>
 	</properties>
 	
@@ -40,12 +42,12 @@
 		<dependency>
 			<groupId>org</groupId>
 			<artifactId>etherpad_lite_client</artifactId>
-			<version>1.2</version>
+			<version>1.2.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.6.3</version>
+			<version>1.8.1</version>
 		</dependency>
 
 		<!-- For test purpose only -->
@@ -59,15 +61,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>

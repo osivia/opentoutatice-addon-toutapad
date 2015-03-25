@@ -179,6 +179,9 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 	}
 
 	private class ToutapadSchedule implements Schedule {
+		
+		private static final long serialVersionUID = -4131912394687143207L;
+		
 		String id;
 		String cron;
 		
@@ -205,6 +208,11 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 
 		public String getUsername() {
 			return "Administrator";
+		}
+
+		@Override
+		public boolean isEnabled() {
+			return true;
 		}
 		
 	}
