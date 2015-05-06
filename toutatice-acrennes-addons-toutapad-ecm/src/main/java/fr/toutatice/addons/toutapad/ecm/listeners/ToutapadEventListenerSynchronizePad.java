@@ -1,18 +1,24 @@
 package fr.toutatice.addons.toutapad.ecm.listeners;
 
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.repository.Repository;
 import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.EventContextImpl;
+import org.nuxeo.ecm.platform.query.api.PageProvider;
+import org.nuxeo.ecm.platform.query.api.PageProviderService;
+import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 import org.nuxeo.runtime.api.Framework;
 
 import fr.toutatice.addons.toutapad.ecm.helpers.ToutapadDocumentHelper;
@@ -38,12 +44,6 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 	}
 
 	private class ToutapadContentSynchronizationRunner extends UnrestrictedSessionRunner {
-		private static final String LIST_ACTIVE_PADS_QUERY = "SELECT * FROM Document WHERE ecm:primaryType = 'ToutaticePad' "
-				+ "AND ecm:mixinType != 'HiddenInNavigation' "
-				+ "AND ecm:isCheckedInVersion = 0 "
-				+ "AND ecm:currentLifeCycleState != 'deleted' "
-				+ "AND ecm:isProxy = 0";
-		
 		private EtherpadClientService service = null;
 		
 		public ToutapadContentSynchronizationRunner(String repository) {
@@ -52,13 +52,16 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 
 		@Override
 		public void run() throws ClientException {
-			DocumentModelList padsList = this.session.query(LIST_ACTIVE_PADS_QUERY);
-			if (null != padsList) {
+			List<DocumentModel> padsList = getActivePADs();
+			if (null != padsList && 0 < padsList.size()) {
 				for (DocumentModel pad : padsList) {
-					String content = getEtherpadClientService().getPADContent(pad, EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT);
-					ToutapadDocumentHelper.synchronizePad(this.session, pad, content);
+					try {
+						String content = getEtherpadClientService().getPADContent(pad, EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT);
+						ToutapadDocumentHelper.synchronizePad(this.session, pad, content);
+					} catch (Exception e) {
+						log.error("Failed to synchronize the pad '" + pad.getTitle()+ "' (id='" + pad.getId() + "'), error: " + e.getMessage());
+					}
 				}
-				log.info("Synchronized " + padsList.size() + " Toutatice PAD(s) from the repository '" + this.repositoryName + "'");
 			}
 		}
 		
@@ -72,6 +75,23 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 			
 			return this.service;
 		}
+		
+	    @SuppressWarnings("unchecked")
+		private List<DocumentModel> getActivePADs() {
+	        PageProviderService ppService = Framework.getService(PageProviderService.class);
+	        if (ppService == null) {
+	            throw new RuntimeException("Missing PageProvider service");
+	        }
+	        
+	        Map<String, Serializable> props = new HashMap<String, Serializable>();
+	        props.put(CoreQueryDocumentPageProvider.CORE_SESSION_PROPERTY, (Serializable) this.session);
+            props.put(CoreQueryDocumentPageProvider.USE_UNRESTRICTED_SESSION_PROPERTY, Boolean.TRUE);
+			PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider("GET_ACTIVE_PADS_FOR_SYNCHRONISATION", null, null, null, props);
+	        if (pp == null) {
+	            throw new ClientException("Page provider not found: " + "GET_ACTIVE_PADS_FOR_SYNCHRONISATION");
+	        }
+	        return pp.getCurrentPage();
+	    }
 		
 	}
 

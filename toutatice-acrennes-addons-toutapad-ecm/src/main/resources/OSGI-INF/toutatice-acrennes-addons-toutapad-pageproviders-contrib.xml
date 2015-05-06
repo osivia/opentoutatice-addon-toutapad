@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<component name="fr.toutatice.addons.toutapad.ecm.pageproviders.config">
+
+	<require>org.nuxeo.ecm.platform.query.api.PageProviderService</require>
+	
+	<extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+		point="providers">
+
+		<coreQueryPageProvider
+			name="GET_ACTIVE_PADS_FOR_SYNCHRONISATION">
+			<pattern>
+				SELECT * FROM Document WHERE ecm:primaryType = 'ToutaticePad' 
+				AND ecm:mixinType != 'HiddenInNavigation' 
+				AND ecm:isCheckedInVersion = 0 
+				AND ecm:currentLifeCycleState != 'deleted' 
+				AND ecm:isProxy = 0
+			</pattern>
+			<pageSize>100000</pageSize>
+			<maxPageSize>0</maxPageSize>
+		</coreQueryPageProvider>
+		
+	</extension>
+
+</component>
