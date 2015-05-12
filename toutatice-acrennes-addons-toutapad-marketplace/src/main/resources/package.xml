@@ -17,7 +17,7 @@
 		<platform>cap-@DISTRIB_VERSION@</platform>
 	</platforms>
 	<dependencies>
-		<package>acrennes-custom:3.0.0-RC01</package>
+		<package>acrennes-custom:3.0.0</package>
 	</dependencies>
 	<license>LGPL 2.1</license>
 	<license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>

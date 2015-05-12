@@ -16,8 +16,8 @@
 	</modules>
 	
 	<properties>
-		<nuxeo.version>6.0-HF08</nuxeo.version>
-		<open.toutatice.version>3.0.0-RC14</open.toutatice.version>
+		<nuxeo.version>6.0-HF09</nuxeo.version>
+		<open.toutatice.version>3.0.0</open.toutatice.version>
 	</properties>
 	
 	<build>
