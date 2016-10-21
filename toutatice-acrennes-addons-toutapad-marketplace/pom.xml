@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>toutatice-acrennes-addons.toutapad</groupId>
 		<artifactId>toutatice-acrennes-addons-toutapad-parent</artifactId>
-		<version>2.1-RC01</version>
+		<version>2.1-RC02-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>toutatice-acrennes-addons-toutapad-marketplace</artifactId>
@@ -44,7 +44,7 @@
 	</build>
 
 	<scm>
-		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags/2.1-RC01/trunk</developerConnection>
+		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/trunk</developerConnection>
 	</scm>
 
 	<distributionManagement>
