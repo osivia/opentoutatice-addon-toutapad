@@ -6,17 +6,19 @@
 	<require>org.nuxeo.ecm.core.lifecycle.LifeCycleService</require>
 	<require>fr.toutatice.ecm.platform.core.doctypes</require>
 	<require>fr.toutatice.ecm.acrennes.core.types</require>
-	
-	<extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
+
+	<extension target="org.nuxeo.ecm.core.schema.TypeService"
+		point="doctype">
 		<doctype name="ToutaticePadFolder" extends="Folder">
 			<facet name="SpaceContent" />
 			<facet name="SpaceNavigationItem" />
 		</doctype>
-		
-		<doctype name="ToutaticePad" extends="Note"/>
+
+		<doctype name="ToutaticePad" extends="Note" />
 	</extension>
-	
-	<extension target="org.nuxeo.ecm.platform.types.TypeService" point="types">
+
+	<extension target="org.nuxeo.ecm.platform.types.TypeService"
+		point="types">
 		<type id="ToutaticePad">
 			<label>Pad toutatice</label>
 			<category>SimpleDocument</category>
@@ -44,7 +46,8 @@
 			<icon>/icons/ToutapadFolder_16.png</icon>
 			<bigIcon>/icons/ToutapadFolder_100.png</bigIcon>
 			<icon-expanded>/icons/folder_open.gif</icon-expanded>
-			<description>Dossier pouvant contenir des PADs Toutatice</description>
+			<description>Dossier pouvant contenir des PADs Toutatice
+			</description>
 			<default-view>view_documents</default-view>
 			<layouts mode="any">
 				<layout>heading</layout>
@@ -60,16 +63,20 @@
 				<layout>acaren-layout-summary</layout>
 			</layouts>
 			<contentViews category="CVTAB@StudioOnlineDocs">
-				<contentView showInExportView="false">cv_ContentOnlineList</contentView>
+				<contentView showInExportView="false">cv_ContentOnlineList
+				</contentView>
 			</contentViews>
 			<contentViews category="CVTAB@StudioWorkingDocs">
-				<contentView showInExportView="false">cv_ContentReadNWrite</contentView>
+				<contentView showInExportView="false">cv_ContentReadNWrite
+				</contentView>
 			</contentViews>
 			<contentViews category="content">
-				<contentView showInExportView="false">cv_ContentReadNWrite_NIPS</contentView>
+				<contentView showInExportView="false">cv_ContentReadNWrite_NIPS
+				</contentView>
 			</contentViews>
 			<contentViews category="trash_content">
-				<contentView showInExportView="false">document_trash_content</contentView>
+				<contentView showInExportView="false">document_trash_content
+				</contentView>
 			</contentViews>
 			<subtypes>
 				<type>ToutaticePad</type>
@@ -81,19 +88,27 @@
 				<type>ToutaticePadFolder</type>
 			</subtypes>
 		</type>
-		
+
+		<type id="Folder">
+			<subtypes>
+				<type>ToutaticePad</type>
+				<type>ToutaticePadFolder</type>
+			</subtypes>
+		</type>
+
 		<type id="UserWorkspace">
 			<subtypes>
 				<type>ToutaticePadFolder</type>
 			</subtypes>
-		</type>	
+		</type>
 	</extension>
-	
-	<extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService" point="types">
+
+	<extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+		point="types">
 		<types>
 			<type name="ToutaticePadFolder">default_toutatice</type>
 			<type name="ToutaticePad">default_toutatice</type>
 		</types>
 	</extension>
-	
+
 </component>
