@@ -9,7 +9,7 @@
 		
 		<layout name="layout@ToutaticePadFolder-create">
 			<templates>
-				<template mode="any">/layouts/ACRENNES2_layout_template.xhtml
+				<template mode="any">/layouts/layout_default_template.xhtml
 				</template>
 			</templates>
 			<rows>
@@ -54,7 +54,7 @@
 		
 		<layout name="layout@ToutaticePadFolder-edit">
 			<templates>
-				<template mode="any">/layouts/ACRENNES2_layout_template.xhtml
+				<template mode="any">/layouts/layout_default_template.xhtml
 				</template>
 			</templates>
 			<rows>
@@ -99,7 +99,7 @@
 		
 		<layout name="layout@ToutaticePadFolder-view">
 			<templates>
-				<template mode="any">/layouts/ACRENNES2_layout_template.xhtml
+				<template mode="any">/layouts/layout_default_template.xhtml
 				</template>
 			</templates>
 			<rows>
@@ -111,7 +111,7 @@
 
 		<layout name="layout@ToutaticePad-create">
 			<templates>
-				<template mode="any">/layouts/ACRENNES2_layout_template.xhtml
+				<template mode="any">/layouts/layout_default_template.xhtml
 				</template>
 			</templates>
 			<rows>
@@ -208,7 +208,7 @@
 
 		<layout name="layout@ToutaticePad-edit">
 			<templates>
-				<template mode="any">/layouts/ACRENNES2_layout_template.xhtml
+				<template mode="any">/layouts/layout_default_template.xhtml
 				</template>
 			</templates>
 			<rows>
@@ -305,7 +305,8 @@
 
 		<layout name="layout@ToutaticePad-view">
 			<templates>
-				<template mode="any">/layouts/ACRENNES2_layout_template.xhtml</template>
+				<template mode="any">/layouts/layout_default_template.xhtml
+				</template>
 			</templates>
 			<rows>
 				<row>

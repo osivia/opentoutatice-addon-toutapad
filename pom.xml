@@ -3,21 +3,21 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>toutatice-acrennes-addons.toutapad</groupId>
-	<artifactId>toutatice-acrennes-addons-toutapad-parent</artifactId>
-	<version>2.1-RC02-SNAPSHOT</version>
+	<groupId>opentoutatice-ecm.toutapad</groupId>
+	<artifactId>opentoutatice-ecm.toutapad-parent</artifactId>
+	<version>3.4.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Acrennes toutapad</name>
-	<description>Etherpad integration plugin for the Acrennes custom project</description>
+	<name>opentoutatice toutapad</name>
+	<description>Etherpad integration plugin for opentoutatice</description>
 	
 	<modules>
-	   <module>toutatice-acrennes-addons-toutapad-ecm</module>
-	   <module>toutatice-acrennes-addons-toutapad-marketplace</module>
+	   <module>opentoutatice-addon-toutapad-ecm</module>
+	   <module>opentoutatice-addon-toutapad-marketplace</module>
 	</modules>
 	
 	<properties>
 		<nuxeo.version>6.0-HF09</nuxeo.version>
-		<open.toutatice.version>3.0.0</open.toutatice.version>
+		<ottc.version>3.4.0-RC02</ottc.version>
 	</properties>
 	
 	<build>
@@ -27,7 +27,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.2.1</version>
 			 	<configuration>
-					<tagBase>http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/tags</tagBase>
+					<tagBase>http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-toutapad/tags</tagBase>
 					<releaseProfiles>unpack,pack</releaseProfiles>
 					<preparationGoals>clean install</preparationGoals>
 					<goals>deploy</goals>
@@ -57,7 +57,7 @@
 	</build>
 	
 	<scm>
-		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/acrennes-addons/acrennes-addon-toutapad/trunk</developerConnection>
+		<developerConnection>scm:svn:http://projet.toutatice.fr/repos/toutatice-ecm/opentoutatice-addons/opentoutatice-toutapad/trunk</developerConnection>
 	</scm>
 
 	<distributionManagement>

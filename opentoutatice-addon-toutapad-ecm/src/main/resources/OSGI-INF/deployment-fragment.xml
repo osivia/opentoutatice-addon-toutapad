@@ -2,7 +2,9 @@
 <fragment version="1">
 
 	<require>org.nuxeo.ecm.platform.query.api</require>
+	<!-- 
 	<require>fr.toutatice.ecm.acrennes.web</require>
+ -->
 	
 	<extension target="application#MODULE">
 		<module>

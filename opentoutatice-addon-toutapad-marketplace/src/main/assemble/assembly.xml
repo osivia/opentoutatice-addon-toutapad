@@ -9,7 +9,7 @@
 	<property name="outdir" value="${maven.project.build.directory}" />
 	<mkdir dir="${outdir}" />
 	
-	<target name="build" description="Build toutatice Toutapad Marketplace package">
+	<target name="build" description="Build opentoutatice Toutapad Marketplace package">
 		<tstamp />
 		<delete failonerror="false" dir="${outdir}/marketplace" />
 		<mkdir dir="${outdir}/marketplace" />
@@ -18,12 +18,13 @@
 			<filterset>
 				<filter token="VERSION" value="${maven.project.version}" />
 				<filter token="DISTRIB_VERSION" value="${nuxeo.cap.distribution.version}" />
+				<filter token="OTTC_VERSION" value="${ottc.version}" />
 			</filterset>
 		</copy>
 
 		<!-- plugins -->
 		<copy todir="${outdir}/marketplace/install/plugins">
-			<artifact:resolveFile key="toutatice-acrennes-addons.toutapad:toutatice-acrennes-addons-toutapad-ecm:${maven.project.version}:jar" />
+			<artifact:resolveFile key="opentoutatice-ecm.toutapad:opentoutatice-addon-toutapad-ecm:${maven.project.version}:jar" />
 		</copy>
 		
 		<!-- 3rd party libraries -->

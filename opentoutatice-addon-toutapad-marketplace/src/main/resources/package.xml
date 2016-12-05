@@ -1,11 +1,11 @@
 <!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
 <package type="addon" name="toutatice-acrennes-addons-toutapad" version="@VERSION@">
-	<title>Toutatice-acrennes-addons-toutapad</title>
+	<title>opentoutatice-ecm.toutapad</title>
 	<description>
-		<p>Addon for Etherpad integration into the Toutatice ENT</p>
+		<p>Addon for Etherpad integration</p>
 	</description>
 	<home-page>http://www.toutatice.fr</home-page>
-	<vendor>Academie de Rennes</vendor>
+	<vendor>opentoutatice</vendor>
 	<installer restart="true" />
 	<uninstaller restart="true" />
 	<!-- <hotreload-support>false</hotreload-support> -->
@@ -17,7 +17,7 @@
 		<platform>cap-@DISTRIB_VERSION@</platform>
 	</platforms>
 	<dependencies>
-		<package>acrennes-custom:3.0.0</package>
+		<package>open-toutatice::@OTTC_VERSION@</package>
 	</dependencies>
 	<license>LGPL 2.1</license>
 	<license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
