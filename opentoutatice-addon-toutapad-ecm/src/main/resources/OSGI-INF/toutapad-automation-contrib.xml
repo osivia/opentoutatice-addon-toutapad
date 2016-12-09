@@ -16,8 +16,11 @@
 	
 	<extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="operations">
 	
+	<!--
 		<operation class="fr.toutatice.addons.toutapad.ecm.automation.ToutapadGetURL" />
 		<operation class="fr.toutatice.addons.toutapad.ecm.automation.ToutapadGetContent" />
+	-->
+		<operation class="fr.toutatice.addons.toutapad.ecm.automation.ToutapadJoinRequest" />
 		
 	</extension>
 	

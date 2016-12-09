@@ -6,7 +6,7 @@
 	
 	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
 		point="layouts">
-		
+		<!-- 
 		<layout name="layout@ToutaticePadFolder-create">
 			<templates>
 				<template mode="any">/layouts/layout_default_template.xhtml
@@ -108,7 +108,7 @@
 				</row>
 			</rows>
 		</layout>
-
+ -->
 		<layout name="layout@ToutaticePad-create">
 			<templates>
 				<template mode="any">/layouts/layout_default_template.xhtml
@@ -303,6 +303,7 @@
 			 -->
 		</layout>
 
+<!-- 
 		<layout name="layout@ToutaticePad-view">
 			<templates>
 				<template mode="any">/layouts/layout_default_template.xhtml
@@ -340,7 +341,7 @@
         		</properties>
 			</widget>
 		</layout>
-
+ -->
 	</extension>
 
 </component>

@@ -28,6 +28,16 @@
 			priority="1000">
 			<event>toutaticePadEventSynchronize</event>
 		</listener>
+
+		<listener name="TOUTATICE_COPY_PAD_EVENT_LISTENER" 
+			async="false" 
+			postCommit="false"
+			class="fr.toutatice.addons.toutapad.ecm.listeners.ToutapadEventListenerCopyPad"
+			priority="200">
+			<event>documentCreatedByCopy</event>
+		</listener>
+
+
 		
 	</extension>
 

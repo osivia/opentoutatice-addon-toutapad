@@ -6,11 +6,12 @@
 	<extension target="org.nuxeo.ecm.core.security.SecurityService"
 		point="permissionsVisibility">
 		
+		<!-- 
 		<visibility type="ToutaticePadFolder">
 			<item order="1000" show="true">validationWorkflow_validation</item>
 			<item order="55" show="true">WriteModifyOwnOnly</item>
 		</visibility>
-		
+		 -->
 		<visibility type="ToutaticePad">
 			<item order="1000" show="true">validationWorkflow_validation</item>
 		</visibility>

@@ -2,7 +2,7 @@ package fr.toutatice.addons.toutapad.ecm.services;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.security.Principal;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,14 +10,19 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.etherpad_lite_client.EPLiteClient;
+import org.etherpad_lite_client.EPLiteException;
 import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.NuxeoPrincipal;
 import org.nuxeo.ecm.core.scheduler.Schedule;
 import org.nuxeo.ecm.core.scheduler.SchedulerService;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
+
+import fr.toutatice.ecm.platform.core.constants.ToutaticeNuxeoStudioConst;
 
 public class EtherpadClientServiceImpl extends DefaultComponent implements EtherpadClientService {
 
@@ -81,25 +86,83 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 			this.descriptors.remove(desc.getName());
 		}
 	}
+	
+//	private String documentToGroupdId(DocumentModel document) {
+//		// Récupérer le webid
+//		String webid  = document.getProperty(ToutaticeNuxeoStudioConst.CST_DOC_SCHEMA_TOUTATICE_WEBID).toString();
+//		
+//		HashMap<String, String> mapres = getClient().createGroupIfNotExistsFor(webid);
+//		String groupId =  mapres.get("groupID");
+//
+//		return groupId;
+//	}
+//	
+	
+//	private String documentToPadId(DocumentModel document) {
+//		// Récupérer le webid
+//		String webid  = document.getProperty(ToutaticeNuxeoStudioConst.CST_DOC_SCHEMA_TOUTATICE_WEBID).toString();
+//		
+//		HashMap<String, String> mapres = getClient().createGroupIfNotExistsFor(webid);
+//		String groupId =  mapres.get("groupID");
+//
+//		return groupId + "$" + webid;
+//	}
 
+	
+	private EtherpadObject documentToPad(DocumentModel document) {
+		String padId  = document.getPropertyValue(ToutaticeNuxeoStudioConst.CST_DOC_SCHEMA_TOUTATICE_WEBID).toString();
+		
+		HashMap<String, String> mapres = getClient().createGroupIfNotExistsFor(padId);
+		String groupId =  mapres.get("groupID");
+		
+		return new EtherpadObject(groupId, padId);
+	}
+	
 	public void createPAD(DocumentModel document) throws ClientException {
-		// créer le PAD
-		getClient().createPad(document.getId());
+		
+		EtherpadObject pad = documentToPad(document);
 		
 		// initialiser le message d'accueil
 		try {
 			String welcomeMessage = getDescriptor().getWelcomeMessage();
 			welcomeMessage = URLEncoder.encode(welcomeMessage, "UTF-8");
-			if (StringUtils.isNotBlank(welcomeMessage)) {
-				getClient().setHTML(document.getId(), welcomeMessage);
+
+			if(pad != null) {
+				getClient().createGroupPad(pad.getGroupId(), pad.getPadId(), welcomeMessage);
 			}
+			
 		} catch (UnsupportedEncodingException e) {
 			log.error("Failed to set the default welcome message as defined whitin the configuration file");
 		}
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see fr.toutatice.addons.toutapad.ecm.services.EtherpadClientService#copyPAD(org.nuxeo.ecm.core.api.DocumentModel, org.nuxeo.ecm.core.api.DocumentModel)
+	 */
+	@Override
+	public void copyPAD(DocumentModel from, DocumentModel to)
+			throws ClientException {
+		
+		EtherpadObject fromPad = documentToPad(from);
+		EtherpadObject toPad = documentToPad(to);
+		
+		HashMap<String, String> mapres = getClient().getText(fromPad.getGroupAndPadId());
+		String text =  mapres.get("text");
+		
+		getClient().createGroupPad(toPad.getGroupId(), toPad.getPadId(), text);
+		
+	}
+	
 	public void deletePAD(DocumentModel document) throws ClientException {
-		getClient().deletePad(document.getId());
+		
+		EtherpadObject pad = documentToPad(document);
+				
+		getClient().deletePad(pad.getGroupAndPadId());
+		
+		getClient().deleteGroup(pad.getGroupId());
+		
+		
 	}
 
 	public boolean isPADViewConnectedMode() throws ClientException {
@@ -108,13 +171,17 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 
 	@SuppressWarnings("unchecked")
 	public String getPADContent(DocumentModel document, String mimetype) throws ClientException {
+		
+		// TODO fetch content of a pad ?
+		EtherpadObject pad = documentToPad(document);
+		
 		String content = "";
 		
 		if (mimetype.equals(EtherpadClientService.PAD_CONTENT_MIME_TYPE_HTML)) {
-			Map<String, String>  map = getClient().getHTML(document.getId());
+			Map<String, String>  map = getClient().getHTML(pad.getGroupAndPadId());
 			content = map.get("html");
 		} else if (mimetype.equals(EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT)) {
-			Map<String, String> map = getClient().getText(document.getId());
+			Map<String, String> map = getClient().getText(pad.getGroupAndPadId());
 			content = map.get("text");
 		} else {
 			log.debug("Not support mimetype: " + mimetype);
@@ -123,37 +190,43 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		return content;
 	}
 
-	public String getPADURL(DocumentModel document, boolean authentified) throws ClientException {
-		String padUrl = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + document.getId();
+	public String getPADURL(DocumentModel document, boolean authentified) throws EPLiteException {
+		
+		EtherpadObject pad = documentToPad(document);
+
+		String padUrl = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + pad.getGroupAndPadId();
 		padUrl = padUrl.concat(EtherpadClientService.URL_WRITE_PARAMETERS);
 		if (authentified) {
-			Principal principal = document.getCoreSession().getPrincipal();
-			padUrl = padUrl.concat(String.format(EtherpadClientService.URL_IDENTIFICATION_PARAMETER, principal.getName()));
+			NuxeoPrincipal principal = (NuxeoPrincipal) document.getCoreSession().getPrincipal();
+			padUrl = padUrl.concat(String.format(EtherpadClientService.URL_IDENTIFICATION_PARAMETER, principal.getFirstName() + " " + principal.getLastName()));
 		}
 		return padUrl;
 	}
 
-	public String getPADReadOnlyURL(DocumentModel document)	throws ClientException {
+	public String getPADReadOnlyURL(DocumentModel document)	throws EPLiteException {
+		
+		EtherpadObject pad = documentToPad(document);
+		
 		@SuppressWarnings("rawtypes")
-		HashMap map = getClient().getReadOnlyID(document.getId());
+		HashMap map = getClient().getReadOnlyID(pad.getGroupAndPadId());
 		String roID = (String) map.get("readOnlyID");
 		String padUrl = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + roID;
 		return padUrl + EtherpadClientService.URL_READ_ONLY_PARAMETERS;
 	}
 	
-	public String getPADPublicURL(DocumentModel document) throws ClientException {
-		String padAnonymousUrl = getPADURL(document, false);
-		String publicFormUrl = getDescriptor().getContributionFormUrl();
-		String url = null;
-		
-		try {
-			url = (StringUtils.isNotBlank(publicFormUrl) ? publicFormUrl + URLEncoder.encode(padAnonymousUrl, "UTF-8") : padAnonymousUrl);
-		} catch (UnsupportedEncodingException e) {
-			throw new ClientException("Failed to obtain the public PAD URL, error: ", e);
-		}
-		
-		return url;
-	}
+//	public String getPADPublicURL(DocumentModel document) throws ClientException {
+//		String padAnonymousUrl = getPADURL(document, false);
+//		String publicFormUrl = getDescriptor().getContributionFormUrl();
+//		String url = null;
+//		
+//		try {
+//			url = (StringUtils.isNotBlank(publicFormUrl) ? publicFormUrl + URLEncoder.encode(padAnonymousUrl, "UTF-8") : padAnonymousUrl);
+//		} catch (UnsupportedEncodingException e) {
+//			throw new ClientException("Failed to obtain the public PAD URL, error: ", e);
+//		}
+//		
+//		return url;
+//	}
 	
 	private EtherpadClientServiceDescriptor getDescriptor() throws ClientException {
 		if (StringUtils.isNotBlank(this.serverName)) {
@@ -207,7 +280,8 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		}
 
 		public String getUsername() {
-			return "Administrator";
+			// TODO variabiliser
+			return "admin";
 		}
 
 		@Override
@@ -216,5 +290,33 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		}
 		
 	}
+
+	/* (non-Javadoc)
+	 * @see fr.toutatice.addons.toutapad.ecm.services.EtherpadClientService#grantAccess(org.nuxeo.ecm.core.api.CoreSession, org.nuxeo.ecm.core.api.DocumentModel)
+	 */
+	@Override
+	public String grantAccess(CoreSession session, DocumentModel document) throws EPLiteException {
+				
+		
+		NuxeoPrincipal principal = (NuxeoPrincipal) session.getPrincipal();
+		HashMap<String, String> mapres = client.createAuthorIfNotExistsFor(principal.getName(), principal.getFirstName() + " " + principal.getLastName());
+		String authorId = mapres.get("authorID");
+		
+		EtherpadObject pad = documentToPad(document);
+		
+	
+		Calendar validUntil = Calendar.getInstance();
+		validUntil.add(Calendar.HOUR, 2);
+		
+		
+		mapres = client.createSession(pad.getGroupId(), authorId, validUntil.getTimeInMillis());
+		String sessionId = mapres.get("sessionID");
+		
+		return sessionId;
+		
+
+	}
+
+
 
 }

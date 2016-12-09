@@ -5,7 +5,7 @@
 
 	<extension target="org.nuxeo.ecm.core.versioning.VersioningService"
 		point="versioningRules">
-
+<!-- 
 		<versioningRule typeName="ToutaticePadFolder">
 			<initialState major="0" minor="0" />
 			<options lifeCycleState="*">
@@ -14,7 +14,7 @@
 				<major />
 			</options>
 		</versioningRule>
-
+ -->
 		<versioningRule typeName="ToutaticePad">
 			<initialState major="0" minor="0" />
 			<options lifeCycleState="*">
