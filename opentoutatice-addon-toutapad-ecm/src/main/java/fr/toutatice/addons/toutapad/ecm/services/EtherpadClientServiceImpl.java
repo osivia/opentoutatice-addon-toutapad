@@ -144,13 +144,19 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 	public void copyPAD(DocumentModel from, DocumentModel to)
 			throws ClientException {
 		
+		createPAD(to);
+		
 		EtherpadObject fromPad = documentToPad(from);
 		EtherpadObject toPad = documentToPad(to);
 		
-		HashMap<String, String> mapres = getClient().getText(fromPad.getGroupAndPadId());
-		String text =  mapres.get("text");
+		HashMap<String, String> mapres = getClient().getHTML(fromPad.getGroupAndPadId());
+		String html =  mapres.get("html");
+		try {
+			html = URLEncoder.encode(html, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+		}
 		
-		getClient().createGroupPad(toPad.getGroupId(), toPad.getPadId(), text);
+		getClient().setHTML(toPad.getGroupAndPadId(), html);
 		
 	}
 	
