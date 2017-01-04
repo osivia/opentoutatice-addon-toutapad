@@ -21,15 +21,9 @@
 			<bigIcon>/icons/Toutapad_100.png</bigIcon>
 			<description></description>
 			<default-view>view_documents</default-view>
-			<layouts mode="create">
-				<layout>layout@ToutaticePad-create</layout>
-			</layouts>
-			<layouts mode="edit">
-				<layout>layout@ToutaticePad-edit</layout>
-			</layouts>
-			<layouts mode="view">
-				<layout>layout@ToutaticePad-view</layout>
-			</layouts>
+			<layouts mode="any">
+				<layout>heading</layout>
+			</layouts>			
 		</type>
 		
 

@@ -8,7 +8,6 @@ Bundle-Vendor: opentoutatice
 Bundle-Category: stateful
 Nuxeo-Component: OSGI-INF/toutapad-service-contrib.xml,
  OSGI-INF/toutapad-types-contrib.xml,
- OSGI-INF/toutapad-layouts-contrib.xml,
  OSGI-INF/toutapad-versioning-contrib.xml,
  OSGI-INF/toutapad-security-contrib.xml,
  OSGI-INF/toutapad-actions-contrib.xml,
