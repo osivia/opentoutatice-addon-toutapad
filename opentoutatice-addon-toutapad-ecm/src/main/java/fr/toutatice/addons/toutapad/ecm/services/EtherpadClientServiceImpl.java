@@ -200,7 +200,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		
 		EtherpadObject pad = documentToPad(document);
 
-		String padUrl = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + pad.getGroupAndPadId();
+		String padUrl = getDescriptor().getPublicServerURL() + getDescriptor().getPrefixURL() + pad.getGroupAndPadId();
 		padUrl = padUrl.concat(EtherpadClientService.URL_WRITE_PARAMETERS);
 		if (authentified) {
 			NuxeoPrincipal principal = (NuxeoPrincipal) document.getCoreSession().getPrincipal();
@@ -216,7 +216,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		@SuppressWarnings("rawtypes")
 		HashMap map = getClient().getReadOnlyID(pad.getGroupAndPadId());
 		String roID = (String) map.get("readOnlyID");
-		String padUrl = getDescriptor().getServerURL() + getDescriptor().getPrefixURL() + roID;
+		String padUrl = getDescriptor().getPublicServerURL() + getDescriptor().getPrefixURL() + roID;
 		return padUrl + EtherpadClientService.URL_READ_ONLY_PARAMETERS;
 	}
 	
@@ -244,7 +244,7 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 	
 	private void initializeEtherpadClient() throws ClientException {
 		try {
-			this.client = new EPLiteClient(getDescriptor().getServerURL(), getDescriptor().getApiKey());
+			this.client = new EPLiteClient(getDescriptor().getPrivateServerURL(), getDescriptor().getApiKey());
 		} catch (Exception e) {
 			throw new ClientException("Failed to instanciate Etherpad client, error: " + e.getMessage());
 		}

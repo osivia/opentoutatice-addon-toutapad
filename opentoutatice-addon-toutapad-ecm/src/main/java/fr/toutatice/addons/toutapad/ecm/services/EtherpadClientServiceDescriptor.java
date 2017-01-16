@@ -14,12 +14,15 @@ public class EtherpadClientServiceDescriptor {
 	@XNode("@enabled")
 	protected boolean enabled;
 
-	@XNode("serverURL")
-	private String serverURL;
+	@XNode("privateServerURL")
+	private String privateServerURL;
 
 	@XNode("prefixURL")
 	private String prefixURL;
 
+	@XNode("publicServerURL")
+	private String publicServerURL;	
+	
 	@XNode("apiKey")
 	private String apiKey;
 
@@ -59,12 +62,20 @@ public class EtherpadClientServiceDescriptor {
 		this.enabled = enabled;
 	}
 
-	public String getServerURL() {
-		return serverURL;
+	public String getPrivateServerURL() {
+		return privateServerURL;
 	}
 
-	public void setServerURL(String serverURL) {
-		this.serverURL = serverURL;
+	public void setPrivateServerURL(String privateServerURL) {
+		this.privateServerURL = privateServerURL;
+	}
+
+	public String getPublicServerURL() {
+		return publicServerURL;
+	}
+
+	public void setPublicServerURL(String publicServerURL) {
+		this.publicServerURL = publicServerURL;
 	}
 
 	public String getPrefixURL() {
