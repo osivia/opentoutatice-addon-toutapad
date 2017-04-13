@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>opentoutatice-ecm.toutapad</groupId>
 		<artifactId>opentoutatice-ecm.toutapad-parent</artifactId>
-		<version>3.4.0</version>
+		<version>4.6-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>opentoutatice-addon-toutapad-marketplace</artifactId>
