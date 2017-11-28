@@ -37,7 +37,7 @@
 		<dependency>
 			<groupId>opentoutatice-ecm.platform</groupId>
 			<artifactId>opentoutatice-ecm-platform-core</artifactId>
-			<version>${ottc.version}</version>
+			<version>${nuxeo.opentoutatice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org</groupId>
