@@ -34,7 +34,7 @@ public interface EtherpadClientService {
 
 	public void createPAD(DocumentModel document) throws ClientException;
 	public void deletePAD(DocumentModel document) throws ClientException;
-	public String getPADContent(DocumentModel document, String mimetype) throws ClientException;
+	public String getPADContent(DocumentModel document, String mimetype) throws EPLiteException;
 	public String getPADURL(DocumentModel document, boolean authentified) throws EPLiteException;
 //	public String getPADPublicURL(DocumentModel document) throws ClientException;
 	public String getPADReadOnlyURL(DocumentModel document) throws EPLiteException;

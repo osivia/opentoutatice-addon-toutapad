@@ -176,9 +176,8 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 	}
 
 	@SuppressWarnings("unchecked")
-	public String getPADContent(DocumentModel document, String mimetype) throws ClientException {
+	public String getPADContent(DocumentModel document, String mimetype) throws EPLiteException {
 		
-		// TODO fetch content of a pad ?
 		EtherpadObject pad = documentToPad(document);
 		
 		String content = "";
@@ -242,12 +241,12 @@ public class EtherpadClientServiceImpl extends DefaultComponent implements Ether
 		}
 	}
 	
-	private void initializeEtherpadClient() throws ClientException {
-		try {
+	private void initializeEtherpadClient() {
+//		try {
 			this.client = new EPLiteClient(getDescriptor().getPrivateServerURL(), getDescriptor().getApiKey());
-		} catch (Exception e) {
-			throw new ClientException("Failed to instanciate Etherpad client, error: " + e.getMessage());
-		}
+//		} catch (Exception e) {
+//			throw new ClientException("Failed to instanciate Etherpad client, error: " + e.getMessage());
+//		}
 	}
 	
 	private EPLiteClient getClient() throws ClientException {

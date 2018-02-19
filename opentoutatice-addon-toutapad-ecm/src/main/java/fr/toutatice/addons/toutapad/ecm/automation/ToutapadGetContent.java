@@ -2,6 +2,7 @@ package fr.toutatice.addons.toutapad.ecm.automation;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.etherpad_lite_client.EPLiteException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -24,16 +25,16 @@ public class ToutapadGetContent {
 	private static final Log log = LogFactory.getLog(ToutapadGetContent.class);
 
 	@OperationMethod
-    public Blob run(DocumentModel document) throws Exception {
+    public Blob run(DocumentModel document) {
 		String content = null;
-		
+//		
 		try {
 			EtherpadClientService service = Framework.getService(EtherpadClientService.class);
 			String html = service.getPADContent(document, EtherpadClientService.PAD_CONTENT_MIME_TYPE_HTML);
 			Document doc = Jsoup.parse(html);
 			Elements item = doc.select("body");
 			content = item.html();
-		} catch (Exception e) {
+		} catch (EPLiteException e) {
 			log.warn("Failed to get the PAD content, error: " + e.getMessage());
 			throw new ClientException(e);
 		}

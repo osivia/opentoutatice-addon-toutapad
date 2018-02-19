@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.etherpad_lite_client.EPLiteException;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
@@ -30,16 +31,16 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 	
 	public void handleEvent(Event event) throws ClientException {
 		if (event.getContext() instanceof EventContextImpl) {
-
-			try {
-				Collection<Repository> repositories = Framework.getService(RepositoryManager.class).getRepositories();
-				for (Repository repository : repositories) {
-					UnrestrictedSessionRunner runner = new ToutapadContentSynchronizationRunner(repository.getName());
-					runner.runUnrestricted();
-				}
-			} catch (Exception e) {
-				log.error("Failed to synchronize the pad(s) content, error: " + e.getMessage());
+//
+//			try {
+			Collection<Repository> repositories = Framework.getService(RepositoryManager.class).getRepositories();
+			for (Repository repository : repositories) {
+				UnrestrictedSessionRunner runner = new ToutapadContentSynchronizationRunner(repository.getName());
+				runner.runUnrestricted();
 			}
+//			} catch (Exception e) {
+//				log.error("Failed to synchronize the pad(s) content, error: " + e.getMessage());
+//			}
 		}
 	}
 
@@ -51,17 +52,28 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 		}
 
 		@Override
-		public void run() throws ClientException {
+		public void run() {
 			List<DocumentModel> padsList = getActivePADs();
 			if (null != padsList && 0 < padsList.size()) {
-				for (DocumentModel pad : padsList) {
-					try {
-						String content = getEtherpadClientService().getPADContent(pad, EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT);
-						ToutapadDocumentHelper.synchronizePad(this.session, pad, content);
-					} catch (Exception e) {
-						log.error("Failed to synchronize the pad '" + pad.getTitle()+ "' (id='" + pad.getId() + "'), error: " + e.getMessage());
+				
+
+					for (DocumentModel pad : padsList) {
+						
+						try {
+							String content = getEtherpadClientService().getPADContent(pad, EtherpadClientService.PAD_CONTENT_MIME_TYPE_TEXT);
+							ToutapadDocumentHelper.synchronizePad(this.session, pad, content);
+						}
+						catch(EPLiteException e) {
+							log.error("Failed to synchronize the pad(s) content, error: " + e.getMessage());
+							
+							// if pad is unreachable, stop the synchronization. Test message because root cause is trapped
+							if(e.getMessage().startsWith("Unable to connect")) {
+								break;
+							}
+	
+						}
 					}
-				}
+
 			}
 		}
 		
