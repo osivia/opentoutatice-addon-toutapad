@@ -7,7 +7,7 @@ import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
 import org.nuxeo.ecm.automation.core.annotations.Param;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
@@ -45,7 +45,7 @@ public class ToutapadGetURL {
 			}
 		} catch (Exception e) {
 			log.warn("Failed to get the PAD URL, error: " + e.getMessage());
-			throw new ClientException(e);
+			throw new NuxeoException(e);
 		}
 		
 		return new StringBlob((null != URL) ? URL : "", "text/plain");

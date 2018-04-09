@@ -97,13 +97,13 @@ public class ToutapadActionsBean {
 //		return status;
 //	}
 //		
-//    private EtherpadClientService getPADClientService() throws ClientException {
+//    private EtherpadClientService getPADClientService() throws NuxeoException {
 //    	try {
 //    		if (null == this.padService) {
 //    			this.padService = Framework.getService(EtherpadClientService.class);
 //    		}
 //    	} catch (Exception e) {
-//			throw new ClientException("Failed to obtain the Etherpad client service, error: " + e.getMessage());
+//			throw new NuxeoException("Failed to obtain the Etherpad client service, error: " + e.getMessage());
 //    	}
 //    	
 //        return this.padService;

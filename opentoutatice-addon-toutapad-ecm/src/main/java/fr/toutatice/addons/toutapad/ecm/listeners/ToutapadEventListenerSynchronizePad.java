@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.UnrestrictedSessionRunner;
 import org.nuxeo.ecm.core.api.repository.Repository;
@@ -28,7 +28,7 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 	
 	private static final Log log = LogFactory.getLog(ToutapadEventListenerSynchronizePad.class);
 	
-	public void handleEvent(Event event) throws ClientException {
+	public void handleEvent(Event event) throws NuxeoException {
 		if (event.getContext() instanceof EventContextImpl) {
 
 			try {
@@ -51,7 +51,7 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 		}
 
 		@Override
-		public void run() throws ClientException {
+		public void run() throws NuxeoException {
 			List<DocumentModel> padsList = getActivePADs();
 			if (null != padsList && 0 < padsList.size()) {
 				for (DocumentModel pad : padsList) {
@@ -65,11 +65,11 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
 			}
 		}
 		
-		private EtherpadClientService getEtherpadClientService() throws ClientException {
+		private EtherpadClientService getEtherpadClientService() throws NuxeoException {
 			if (null == this.service) {
 				this.service = Framework.getLocalService(EtherpadClientService.class);
 				if (null == this.service) {
-					throw new ClientException("Failed to obtain the Etherpad client service");
+					throw new NuxeoException("Failed to obtain the Etherpad client service");
 				}
 			}
 			
@@ -88,7 +88,7 @@ public class ToutapadEventListenerSynchronizePad implements EventListener {
             props.put(CoreQueryDocumentPageProvider.USE_UNRESTRICTED_SESSION_PROPERTY, Boolean.TRUE);
 			PageProvider<DocumentModel> pp = (PageProvider<DocumentModel>) ppService.getPageProvider("GET_ACTIVE_PADS_FOR_SYNCHRONISATION", null, null, null, props);
 	        if (pp == null) {
-	            throw new ClientException("Page provider not found: " + "GET_ACTIVE_PADS_FOR_SYNCHRONISATION");
+	            throw new NuxeoException("Page provider not found: " + "GET_ACTIVE_PADS_FOR_SYNCHRONISATION");
 	        }
 	        return pp.getCurrentPage();
 	    }

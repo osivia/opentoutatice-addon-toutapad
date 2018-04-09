@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.EventService;
@@ -37,9 +37,9 @@ public class ToutapadDocumentHelper {
 	 * @param pad the Toutatice Pad document to update
 	 * @param content the content to synchronize
 	 * @return void
-	 * @throws ClientException 
+	 * @throws NuxeoException 
 	 */
-	public static void synchronizePad(CoreSession session, DocumentModel pad, String content) throws ClientException {
+	public static void synchronizePad(CoreSession session, DocumentModel pad, String content) throws NuxeoException {
 		// synchronize the current Toutatice pad document metadata with the Etherpad pad content
 		if (null != content) {
 			ToutaticeSilentProcessRunnerHelper runner = new PadSynchronizationRunner(session, pad, content);
@@ -58,7 +58,7 @@ public class ToutapadDocumentHelper {
 		}
 
 		@Override
-		public void run() throws ClientException {
+		public void run() throws NuxeoException {
 			this.document.setPropertyValue("note:note", this.content);
 			this.session.saveDocument(this.document);
 			log.debug("Synchronized successfully the pad '(" + this.document.getId() + ") " + this.document.getTitle() + "'");

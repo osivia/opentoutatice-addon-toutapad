@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
@@ -22,7 +22,7 @@ public class ToutapadEventListenerCreatePad implements EventListener {
 	
 	private EtherpadClientService service = null;
 	
-	public void handleEvent(Event event) throws ClientException {
+	public void handleEvent(Event event) throws NuxeoException {
 		if (event.getContext() instanceof DocumentEventContext) {
 			DocumentEventContext eventContext = (DocumentEventContext) event.getContext();
 			DocumentModel document = eventContext.getSourceDocument();
@@ -39,13 +39,13 @@ public class ToutapadEventListenerCreatePad implements EventListener {
 		}
 	}
 	
-	private EtherpadClientService getEtherpadClientService() throws ClientException {
+	private EtherpadClientService getEtherpadClientService() throws NuxeoException {
 		if (null == this.service) {
 			this.service = Framework.getLocalService(EtherpadClientService.class);
 		}
 
 		if (null == this.service) {
-			throw new ClientException("Failed to obtain the Etherpad client service");
+			throw new NuxeoException("Failed to obtain the Etherpad client service");
 		}
 		
 		return this.service;

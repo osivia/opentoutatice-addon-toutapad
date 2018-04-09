@@ -15,7 +15,7 @@
 package fr.toutatice.addons.toutapad.ecm.services;
 
 import org.etherpad_lite_client.EPLiteException;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
@@ -32,13 +32,13 @@ public interface EtherpadClientService {
 	public static final String URL_READ_ONLY_PARAMETERS = "?noColors=true&showControls=false&showChat=false&showLineNumbers=false&useMonospaceFont=false";
 	public static final String URL_WRITE_PARAMETERS = "?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false";
 
-	public void createPAD(DocumentModel document) throws ClientException;
-	public void deletePAD(DocumentModel document) throws ClientException;
-	public String getPADContent(DocumentModel document, String mimetype) throws ClientException;
+	public void createPAD(DocumentModel document) throws NuxeoException;
+	public void deletePAD(DocumentModel document) throws NuxeoException;
+	public String getPADContent(DocumentModel document, String mimetype) throws NuxeoException;
 	public String getPADURL(DocumentModel document, boolean authentified) throws EPLiteException;
-//	public String getPADPublicURL(DocumentModel document) throws ClientException;
+//	public String getPADPublicURL(DocumentModel document) throws NuxeoException;
 	public String getPADReadOnlyURL(DocumentModel document) throws EPLiteException;
-	public boolean isPADViewConnectedMode() throws ClientException;
+	public boolean isPADViewConnectedMode() throws NuxeoException;
 	
 	
 	/**
@@ -55,6 +55,6 @@ public interface EtherpadClientService {
 	 * @param from
 	 * @param to
 	 */
-	public void copyPAD(DocumentModel from, DocumentModel to)  throws ClientException;
+	public void copyPAD(DocumentModel from, DocumentModel to)  throws NuxeoException;
 	
 }
